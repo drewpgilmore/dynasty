@@ -1,11 +1,8 @@
 #! /usr/bin/env python3
-# app.py - Used to return scores to webpage
+# app.py - Used to render data to web page
 
 from flask import Flask, render_template, redirect
-
-import pandas as pd
-import numpy as np
-import espn_api.football
+from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
 
