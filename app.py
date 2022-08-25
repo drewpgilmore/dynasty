@@ -6,19 +6,27 @@ from flask_sqlalchemy import SQLAlchemy
 
 # flask app
 app = Flask(__name__)
-if __name__ == "__main__":
-    app.run(debug=True)
-
-# app routes
-@app.route("/")
+ 
+# homepage
+@app.route('/')
 def index(): 
     # render live scoreboard with team & total points
     # from scores import getScores
     # scores = getScores()
     return render_template('index.html')
 
-@app.route("/chronicle")
+# scores
+from scores import displayScores
+@app.route('/scores')
 def chronicle(): 
-    # render web version of chronicle
-    return render_template("chronicle.html")
+    
+    return displayScores(2019, 5)
+
+# archive
+@app.route('/archive')
+def archive(year, week):
+    pass
+
+if __name__ == "__main__":
+    app.run(debug=True)
 
