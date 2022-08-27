@@ -20,12 +20,14 @@ from scores import displayScores
 @app.route('/scores')
 def chronicle(): 
     
-    return displayScores(2019, 5)
+    return displayScores(2015, 5)
 
 # archive
 @app.route('/archive')
 def archive(year, week):
-    pass
+    #!TO DO: pull year and week figures from drop-downs on the page
+    
+    return displayScores(year, week)
 
 if __name__ == "__main__":
     app.run(debug=True)
