@@ -4,27 +4,38 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Encinitas Dynasty</title>
+    <title>Encinitas Dynasty Archive</title>
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
 </head>
 <body>
     <!--Navbar-->
-    <nav class="navbar fixed-top navbar-expand-lg">
-        <span class="navbar-brand">Encinitas Dynasty</span>
-        <ul>
-            <li>Scoreboard</li>
-            <li>Archive</li>
-            <li>Chronicle</li>
-        </ul>
-    </nav>
-    
-    
-    
+    <h1 class="headline">Encinitas Dynasty Archive</h1>
+    <form class="form-inline" method="POST" action="{{ url_for('archive') }}">
+        <div class="form-group">
+          <div class="input-group">
+              <span class="input-group-addon">Year</span>
+                  <select name="year_select" class="selectpicker form-control">
+                    <option value="2021">2021</option>
+                    <option value="2020">2020</option>
+                  </select>
+          </div>
+          <div class="input-group">
+            <span class="input-group-addon">Week</span>
+                <select name="week_select" class="selectpicker form-control">
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                </select>
+        </div>
+          <button type="submit" class="btn btn-default">Go</button>
+        </div>
+      </form>
+
     {% block body %}{% endblock %}
 
     <!-- Latest compiled and minified JavaScript -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/js/bootstrap.min.js" integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" crossorigin="anonymous"></script>    
+
 </body>
 </html>

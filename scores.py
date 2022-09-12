@@ -9,6 +9,7 @@ from espn_api.football import League
 from config import LEAGUE_ID, ESPN_S2, SWID
 
 def getLeague(year):
+    """Creates league object for given year"""
     league = League(
         league_id=LEAGUE_ID,
         year=year,
@@ -19,8 +20,13 @@ def getLeague(year):
     return league
 
 def getScores(year, week):
+    """Returns dict of teams and scores from box scores"""
     league = getLeague(year)
-    scoreboard = league.scoreboard(week=week) # returns list of matchup objects
+    if year >= 2021:
+        scoreboard = league.box_scores(week=week)
+    else:
+        scoreboard = league.scoreboard(week=week)
+        
     tally = {}
     for matchup in scoreboard:
         tally[matchup.home_team.team_name] = matchup.home_score
@@ -42,4 +48,5 @@ def displayScores(year, week):
         table_id='scoreboard'
     )
 
-    return sorted_data.to_html()
+    return sorted_data
+    #return sorted_data.to_html()

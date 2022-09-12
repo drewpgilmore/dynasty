@@ -1,7 +1,7 @@
 #! /usr/bin/env python3
 # app.py - Used to render data to web page
 
-from flask import Flask, render_template, redirect
+from flask import Flask, render_template, redirect, request, url_for
 from flask_sqlalchemy import SQLAlchemy
 
 # flask app
@@ -10,25 +10,24 @@ app = Flask(__name__)
 # homepage
 @app.route('/')
 def index(): 
-    # render live scoreboard with team & total points
-    # from scores import getScores
-    # scores = getScores()
+    """Pull scores from selected year and week"""
     return render_template('index.html')
-
-# scores
-from scores import displayScores
-@app.route('/scores')
-def chronicle(): 
     
-    return displayScores(2015, 5)
 
-# archive
-@app.route('/archive')
-def archive(year, week):
-    #!TO DO: pull year and week figures from drop-downs on the page
-    
-    return displayScores(year, week)
+@app.route('/archive', methods=['GET', 'POST'])
+def archive():
+    """Takes year and week from form and renders scores"""
+    year = int(request.form.get('year_select'))
+    week = int(request.form.get('week_select'))
+
+    from scores import getScores
+    s = getScores(year,week)
+    context = {
+        "scores": s,
+        "year": year
+    }
+    return render_template("archive.html", **context)
+
 
 if __name__ == "__main__":
     app.run(debug=True)
-
