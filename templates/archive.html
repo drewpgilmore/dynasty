@@ -4,5 +4,13 @@
 {% endblock %}
 
 {% block body %}
-{{ scores }}
+    <table class="table-center" id="scores-table">
+        <thead><th>Team</th><td>Score</td></thead>
+        {% for key, value in scores.items() %}
+        <tr>
+            <th>{{ key }}</th>
+            <td>{{ value }}</td>
+        </tr>
+        {% endfor %}
+    </table>
 {% endblock %}
