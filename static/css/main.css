@@ -14,3 +14,11 @@ body {
     font-size: x-large;
     justify-self: center;
 }
+
+a {
+    font-size: larger;
+    font-weight: 200;
+    color: olive;
+    margin-left: 1em;
+    margin-right: 1em;
+}
