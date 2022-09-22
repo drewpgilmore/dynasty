@@ -1,20 +1,17 @@
-from scores import *
+#! /env/bin python3
+# results.py -- script for retrieving weekly scores
+
+from scores import getLeague, getScores
 import pandas as pd
 
-week = int(input("Week: "))
-
 league = getLeague(2022)
-method = input('proj or actual? ')
-
-if method == 'proj':
-    data = getProjected(2022, week)
-else:
-    data = getScores(2022, week)
+week = int(input('Week: '))
+data = getScores(league.year, week)
 
 df = pd.DataFrame(
-    data=data.values(), 
+    data=data.values(),
     index=data.keys(),
-    columns=['Proj. Points'] if method == 'proj' else ['Points']
+    columns=['Proj. Points'] if week == league.current_week else ['Points']
 )
- 
+
 print(df)
