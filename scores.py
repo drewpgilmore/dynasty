@@ -107,22 +107,23 @@ def getScoreboard(year, throughWeek):
 
         if i == league.current_week:
             scoreboard.rename(columns={f'Week {i}': f'Week {i} (Proj.)'}, inplace=True)
-
-
-        if i < league.current_week: # checks if throughWeek has complete data or projected
-            data = getScores(year,i)
-            for team in teams:
-                scoreboard.loc[team,f'Week {i}'] = getPoints(data,team)
-                scoreboard.loc[team, 'Points For'] += data[team]
-        else:
-            scoreboard.rename(columns={f'Week {i}': f'Week {i} (Proj.)'}, inplace=True) 
-            data = getProjected(year,i)
-            for team in teams:
-                scoreboard.loc[team,f'Week {i} (Proj.)'] = getPoints(data,team)
-                scoreboard.loc[team, 'Points For'] += data[team]
     
     scoreboard['Total'] = scoreboard.sum(axis=1) - scoreboard['Points For']
     scoreboard['Total'].astype(int, copy=False)    
     return scoreboard.sort_values(by=['Total', 'Points For'], ascending=False)
 
-print(getScoreboard(2022,3)) 
+# get list of teams players and scores
+def getLineupScores(lineup): 
+    """Returns dict of teams lineup with player name and score.
+
+    Keyword arguments:
+    lineup (array): list of Player objects from home_lineup or away_lineup within Matchup object
+
+    Returns:
+    lineupScores (dict): dict of lineup with names and scores
+    """
+
+    lineupScores = {}
+
+
+    return lineupScores # testing func with just list of players
