@@ -1,11 +1,8 @@
 import pandas as pd
-import scores
+from scores import getScoreboard
 
 week = int(input('Through Week: '))
-method = input('proj or actual? ')
 
-df = pd.DataFrame(
-    data=data.values(), 
-    index=data.keys(),
-    columns=['Proj. Points'] if method == 'proj' else ['Points']
-) 
+df = getScoreboard(2022, week)
+
+print()
