@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block head %}
+{% endblock %}
+
+{% block body %}
+
+<table id="scores-table">
+    <thead>
+        <th>Team</th>
+        {% for col in columns %}
+        <th>{{ col }}</th>
+        {% endfor %}
+    </thead>
+    <tbody>
+        {% for key, value in scoreboardTable.iterrows() %}
+            <tr>
+                <td>{{ key }}</td>
+                {% for col in columns %}
+                <td>{{ value[col] }} </td>
+                {% endfor %}
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% endblock %}

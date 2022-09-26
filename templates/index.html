@@ -1,19 +1,29 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../static/css/main.css">
-    <title>Encinitas Dynasty</title>
-</head>
-<body>
-    <h1 class="ED-title">Encinitas Dynasty</h1>
-    <h3 class="ED-subtitle">A Niche Fantasy Football Community</h3>
-    <div>
-        <a>Scoreboard</a>
-        <a>Rosters</a>
-        <a href="{{ url_for('archive')}}">Archive</a>
-    </div>
-</body>
-</html>
+{% extends 'base.html' %}
+
+{% block head %}
+{% endblock %}
+
+{% block currentWeek %}
+
+Week {{ week }}
+
+{% endblock %}
+
+
+{% block body %}
+
+<div class="container-sm">
+    <table class="table table-sm" id="scores-table">
+        <thead>
+            <th scope="col" class="team-col">Team</th>
+            <th score="col" class="score-col">Score</th>
+        </thead>
+        {% for key, value in scores.items() %}
+        <tr>
+            <td class="team-col">{{ key }}</td>
+            <td class="score-col">{{ value }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+{% endblock %}

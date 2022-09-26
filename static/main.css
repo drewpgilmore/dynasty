@@ -1,0 +1,57 @@
+body {
+    font-family: sans-serif;
+    text-align: center;
+}
+
+.headline {
+    font-weight: 500;
+}
+
+#scores-table {
+    background-color: RGB(51,153,102);
+    color: white;
+    margin-top: 1em;
+    padding-left: 2em;
+    padding-right: 2em;
+    font-size: x-large;
+    justify-self: center;
+    width: 70%;
+}
+
+a {
+    font-size: larger;
+    font-weight: 200;
+    color: olive;
+    margin-left: 1em;
+    margin-right: 1em;
+}
+
+.display-2 {
+    margin-top: 1em;
+    font-weight: bold;
+}
+
+.input-group {
+    font-size: 20px;
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+    margin-left: 0.25em;
+    width: 15%;
+}
+
+.input-group-addon {
+    margin-left: 0.5em,
+    margin-right: 0.5em
+}
+
+.team-col {
+    text-align: left;
+}
+
+.score-col {
+    text-align: right;
+}
+
+tr.header {
+    cursor:pointer;
+}
