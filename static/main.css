@@ -1,34 +1,43 @@
+/*
 body {
-    font-family: sans-serif;
+    background-color: rgb(248,249,250);
     text-align: center;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 .headline {
     font-weight: 500;
 }
 
+.nav-item {
+    font-size: larger;
+}
+
+.form-select {
+    width: 25%;
+}
+
 #scores-table {
     background-color: RGB(51,153,102);
     color: white;
-    margin-top: 1em;
-    padding-left: 2em;
-    padding-right: 2em;
-    font-size: x-large;
-    justify-self: center;
-    width: 70%;
+    border-color: white;
+    padding-top: 10px;
+    font-size: larger;
+    width: fit-content;
+    border: 3px solid black;
+    column-width: 20px;
+}
+
+thead {
+    background-color: RGB(26,128,77);
+    padding-left: 15px;
 }
 
 a {
-    font-size: larger;
+    color: gray;
+    font-size: x-large;
     font-weight: 200;
-    color: olive;
-    margin-left: 1em;
-    margin-right: 1em;
-}
-
-.display-2 {
-    margin-top: 1em;
-    font-weight: bold;
+    margin: 2em;
 }
 
 .input-group {
@@ -55,3 +64,27 @@ a {
 tr.header {
     cursor:pointer;
 }
+
+button {
+    margin: 5px;
+}
+
+#slack-button {
+    background-color: purple;
+    border-color: purple;
+}
+
+#espn-button {
+    background-color: red;
+    border-color: red;
+}
+
+img {
+    width: 40px;
+    height: auto;
+}
+
+td {
+    margin: 5px;
+}
+*/
