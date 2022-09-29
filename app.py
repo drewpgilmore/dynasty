@@ -15,8 +15,6 @@ year = league.year
 current_week = league.current_week
 
 thisWeeksScores = getScores(year,current_week)
-currentScoreboard = getScoreboard(year,current_week-1)
-projectedScoreboard = getScoreboard(year,current_week)
 
 # homepage
 @app.route('/')
@@ -30,19 +28,36 @@ def index():
     return render_template('index.html',**context)
     #return f'Made it to homepage! Fetching scores from {year} Week {current_week} \n {thisWeeksScores}'
 
-@app.route('/scoreboard')
+@app.route('/scoreboard', methods=('GET', 'POST'))
 def scoreboard():
     """Render scoreboard for current season"""
-    scoreboardTable = projectedScoreboard
+
+    if request.form.get("scoreboard-week") is None:
+        week = current_week
+    else:
+        week = int(request.form.get("scoreboard-week"))
+
+    return redirect(url_for("updateScoreboard", week=week))
+
+@app.route('/scoreboard/week<int:week>')
+def updateScoreboard(week):
+    """Change scoreboard throughWeek"""
+
+    scoreboardTable = getScoreboard(year, week)
     columns = scoreboardTable.columns
-    teams = projectedScoreboard.index
-    
+    teams = scoreboardTable.index
+
     context = {
+        "year": year,
+        "week": week,
+        "currentWeek": current_week,
         "scoreboardTable": scoreboardTable,
         "columns": columns
     }
 
-    return render_template("scoreboard.html",**context)
+    #return scoreboardTable.to_html()
+    return render_template("scoreboard.html", **context)
+
 
 @app.route('/archive', methods=('GET', 'POST'))
 def archive():

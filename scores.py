@@ -109,7 +109,8 @@ def getScoreboard(year, throughWeek):
             scoreboard.rename(columns={f'Week {i}': f'Week {i} (Proj.)'}, inplace=True)
     
     scoreboard['Total'] = scoreboard.sum(axis=1) - scoreboard['Points For']
-    scoreboard['Total'].astype(int, copy=False)    
+    scoreboard['Total'] = scoreboard['Total'].astype(int)    
+    scoreboard['Points For'] = scoreboard['Points For'].round(decimals=2)
     return scoreboard.sort_values(by=['Total', 'Points For'], ascending=False)
 
 # get list of teams players and scores
