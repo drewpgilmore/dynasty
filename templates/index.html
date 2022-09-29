@@ -11,19 +11,16 @@ Week {{ week }}
 
 
 {% block body %}
-
-<div class="container-sm">
-    <table class="table table-sm" id="scores-table">
-        <thead>
-            <th scope="col" class="team-col">Team</th>
-            <th score="col" class="score-col">Score</th>
-        </thead>
-        {% for key, value in scores.items() %}
-        <tr>
-            <td class="team-col">{{ key }}</td>
-            <td class="score-col">{{ value }}</td>
-        </tr>
-        {% endfor %}
-    </table>
-</div>
+<table id="scores-table">
+    <thead>
+        <th>Team</th>
+        <th>Score</th>
+    </thead>
+    {% for key, value in scores.items() %}
+    <tr>
+        <td>{{ key }}</td>
+        <td>{{ value }}</td>
+    </tr>
+    {% endfor %}
+</table>
 {% endblock %}
