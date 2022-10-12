@@ -5,4 +5,4 @@ week = int(input('Through Week: '))
 
 df = getScoreboard(2022, week)
 
-print()
+print(df)

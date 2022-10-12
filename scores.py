@@ -64,7 +64,7 @@ def getScores(year, week):
 
     return scores
 
-def getPoints(data, team): # return fantasy team's points for week
+def getPoints(year, week): # return fantasy team's points for week
     """Return team's points based on league scoreboard. 
 
     Keyword arguments: 
@@ -74,8 +74,11 @@ def getPoints(data, team): # return fantasy team's points for week
     Returns:
     points (int): points to be displayed on scoreboard
     """
-    limit = len(data) # max points team can earn is equal to number of teams in league
-    points = int(limit - list(data.keys()).index(team))
+    points = {}
+    scores = getScores(year, week)
+    limit = len(scores) # max points team can earn is equal to number of teams in league
+    teams = list(scores.keys())
+    points = {team: int(limit - teams.index(team)) for team in teams}
 
     return points
 

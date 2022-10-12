@@ -7,6 +7,9 @@ import pandas as pd
 
 # flask app
 app = Flask(__name__)
+# database
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///league_db.sqlite3'
+db = SQLAlchemy(app)
 
 # import functionality from scores.py
 from scores import getLeague, getScores, getScoreboard
