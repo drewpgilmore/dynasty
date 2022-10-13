@@ -4,7 +4,7 @@ My fantasy football league faces a unique problem: the scoring methodologies off
 Do they suffice for 99.99% of fantasy football newbies & enthusiasts alike? Yes. Do they suffice for us? Absolutely 100% No. 
 
 ### 9 teams, 1 problem
-The issue, *nay* the catastrophe arose when our league went from 10 teams to 9. The trad'l matchup model left an odd man out each week, which seemed like a waste of everyone's time. A bye week is helpful when you're managing *real* NFL football players, but yields no such benefit to the fantasy manager. 
+The issue, *nay* the catastrophe arose when our league went from 10 teams to 9. The trad'l matchup model left an odd man out each week, which seemed like a waste of a week for that person. A bye week is helpful when you're managing *real* NFL football players, but yields no such benefit to the fantasy manager. 
 
 ### A scoreboard for the rest of us
-The solution to this problem was a scoring methodology in which the entire league competes against itself each week. The fruit of your efforts is a weekly score corresponding to the inverse of your rank that week. For example, in our assymetrical 9-team league, the team with the highest team score gets 9 points as their plunder; the lowest gets 1 point, etc. 
+The solution to this problem was a scoring methodology in which the entire league competes against itself each week. The fruit of your efforts is a weekly score corresponding to the inverse of your rank that week. For example, in our assymetrical 9-team league, the team with the highest team score gets 9 points as their plunder; the lowest gets 1 point, etc. This creates a distinct difference from a total points-for model in that it isolates each week, and gives high-performing teams a more meaningful result than simply a W. Perhaps the most enticing feature is that it brings league-wide suspense into Monday night, as inidividual performances on MNF can push multiple teams up the scoreboard. 
