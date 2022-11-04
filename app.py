@@ -1,4 +1,4 @@
-#! /usr/bin/env python3
+#! /env/bin python3
 # app.py - Used to render data to web page
 
 from flask import Flask, render_template, redirect, request, url_for
@@ -8,8 +8,8 @@ import pandas as pd
 # flask app
 app = Flask(__name__)
 # database
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///league_db.sqlite3'
-db = SQLAlchemy(app)
+# app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///league_db.sqlite3'
+# db = SQLAlchemy(app)
 
 # import functionality from scores.py
 from scores import getLeague, getScores, getScoreboard
