@@ -3,29 +3,25 @@
 
 from flask import Flask, render_template, redirect, request, url_for
 from flask_sqlalchemy import SQLAlchemy
+from scores import Dynasty
 import pandas as pd
 
 # flask app
 app = Flask(__name__)
-# database
-# app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///league_db.sqlite3'
-# db = SQLAlchemy(app)
 
-# import functionality from scores.py
-from scores import getLeague, getScores, getScoreboard
-league = getLeague(2022)
-year = league.year
-current_week = league.current_week
-
-thisWeeksScores = getScores(year,current_week)
+# initiate league with current week
+league = Dynasty(year=2022)
+currentWeek = league.current_week
+currentScores = league.weekScores(week=currentWeek)
+currentScoreboard = league.seasonScoreboard(throughWeek=currentWeek)
 
 # homepage
 @app.route('/')
 def index(): 
     """Home page will default to current week"""
     context = {
-        'scores': thisWeeksScores,
-        'week': current_week
+        'scores': currentScores,
+        'week': currentWeek
     }
     
     return render_template('index.html',**context)
@@ -36,7 +32,7 @@ def scoreboard():
     """Render scoreboard for current season"""
 
     if request.form.get("scoreboard-week") is None:
-        week = current_week
+        week = currentWeek
     else:
         week = int(request.form.get("scoreboard-week"))
 
@@ -46,14 +42,14 @@ def scoreboard():
 def updateScoreboard(week):
     """Change scoreboard throughWeek"""
 
-    scoreboardTable = getScoreboard(year, week)
+    scoreboardTable = league.seasonScoreboard(throughWeek=week)
     columns = scoreboardTable.columns
     teams = scoreboardTable.index
 
     context = {
-        "year": year,
+        "year": league.year,
         "week": week,
-        "currentWeek": current_week,
+        "currentWeek": currentWeek,
         "scoreboardTable": scoreboardTable,
         "columns": columns
     }
@@ -68,7 +64,7 @@ def archive():
 
     if request.form.get('year_select') is None:
         year = league.year
-        week = league.current_week
+        week = currentWeek
     else:
         year = int(request.form.get('year_select'))
         week = int(request.form.get('week_select'))
@@ -80,7 +76,8 @@ def archive():
 def postScores(year, week):
     """Get year and week inputs from /archive and return archived scoreboard"""
 
-    scores = getScores(year, week)
+    league = Dynasty(year=year)
+    scores = league.weekScores(week=week)
     context = {
         "scores": scores,
         "year": year,
