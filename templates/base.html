@@ -1,30 +1,47 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
+  <head>
+    <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <title>Encinitas Dynasty</title>
-    <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
-</head>
-<body>
-    <!--Navbar-->
-    <nav class="navbar fixed-top navbar-expand-lg">
-        <span class="navbar-brand">Encinitas Dynasty</span>
-        <ul>
-            <li>Scoreboard</li>
-            <li>Archive</li>
-            <li>Chronicle</li>
-        </ul>
-    </nav>
-    
-    
-    
-    {% block body %}{% endblock %}
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+    <link rel="stylesheet" href="../static/main.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" crossorigin="anonymous"></script>
+    {% block head %}{% endblock %}
+  </head>
+  
+  <body> 
+    <!-- Top section-->
+    <h1>Encinitas Dynasty</h1>
+    <h6>A Niche Fantasy Football Community</h6>
+    <div>
+      <a id="home-button" href="{{ url_for('index') }}">Home</a>
+      <a id="scoreboard-button" href="{{ url_for('scoreboard') }}">Scoreboard</a>
+      <a id="archive-button" href="{{ url_for('archive') }}">Archive</a>
+    </div>
 
-    <!-- Latest compiled and minified JavaScript -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/js/bootstrap.min.js" integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" crossorigin="anonymous"></script>    
-</body>
+    <!-- Middle section for content rendering -->
+    <section>
+    {% block body %}
+    {% endblock %}
+    </section>
+
+    <!-- Bottom section -->
+    <div>
+      <footer>
+        <a id="espn-button"href="https://fantasy.espn.com/football/league?leagueId=138431">ESPN</a>
+        <a id="slack-button"href="https://encinitasdynasty.slack.com">Slack</a>
+        <p>© 2022 Absolutely Nothing</p>
+      </footer>
+    </div>
+    </section>
+    <script>
+      $('.header').click(function(){
+        $(this).nextUntil('tr.header').slideToggle(1000);
+      });
+    </script>
+  </body>
 </html>

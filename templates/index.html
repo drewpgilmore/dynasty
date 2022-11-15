@@ -1,9 +1,26 @@
 {% extends 'base.html' %}
 
 {% block head %}
-<!--render Week # here-->
 {% endblock %}
 
+{% block currentWeek %}
+
+Week {{ week }}
+
+{% endblock %}
+
+
 {% block body %}
-<!--render sorted_data from scores.py here-->
+<table id="scores-table">
+    <thead>
+        <th>Team</th>
+        <th>Score</th>
+    </thead>
+    {% for key, value in scores.items() %}
+    <tr>
+        <td>{{ key }}</td>
+        <td>{{ value }}</td>
+    </tr>
+    {% endfor %}
+</table>
 {% endblock %}
