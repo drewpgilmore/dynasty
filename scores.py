@@ -5,6 +5,12 @@ import pandas as pd
 from espn_api.football import League
 from config import LEAGUE_ID, ESPN_S2, SWID
 
+def firstName(owner: str) -> str:
+    """Extracts first name of team owner and title cases it"""
+    name = owner.split(' ')
+    firstName = name[0].title()
+    return firstName
+
 class Dynasty(League):
     """Building on espn_api.football League to add ED-specific functions for scoring"""
     def __init__(self, league_id=LEAGUE_ID, year=None, espn_s2=ESPN_S2, swid=SWID):
@@ -13,8 +19,8 @@ class Dynasty(League):
     def matchupScores(self, matchup, projected=False) -> list:
         """Takes matchup and returns list of team, score tuples"""
         scoreList = [
-            (matchup.home_team.owner, matchup.home_score if not projected else matchup.home_projected),
-            (matchup.away_team.owner, matchup.away_score if not projected else matchup.away_projected) if matchup.away_team != 0 else None
+            (firstName(matchup.home_team.owner), matchup.home_score if not projected else matchup.home_projected),
+            (firstName(matchup.away_team.owner), matchup.away_score if not projected else matchup.away_projected) if matchup.away_team != 0 else None
         ]
         return scoreList
 
@@ -42,7 +48,7 @@ class Dynasty(League):
         for i in range(throughWeek):
             total += team.scores[i]
         if throughWeek == self.current_week:
-            total += self.weekScores(week=self.current_week)[team.owner]
+            total += self.weekScores(week=self.current_week)[firstName(team.owner)]
         else:
             total += 0
         return total
@@ -60,6 +66,6 @@ class Dynasty(League):
         scoreboard['Total'] = scoreboard.sum(axis=1)
         scoreboard['Points For'] = 0
         for team in self.teams:
-            scoreboard.loc[team.owner,'Points For'] = self.pointsFor(team, throughWeek=throughWeek)
+            scoreboard.loc[firstName(team.owner),'Points For'] = self.pointsFor(team, throughWeek=throughWeek)
         scoreboard = scoreboard.sort_values(by=['Total', 'Points For'],ascending=False)
         return scoreboard
