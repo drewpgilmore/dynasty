@@ -1,5 +1,5 @@
 #! /env/bin python3
-# scores.py - fetches league data for given week
+# scores.py - does all the work getting data from the API and transforming it to fit scoreboard
 
 import pandas as pd
 from espn_api.football import League
@@ -13,8 +13,8 @@ class Dynasty(League):
     def matchupScores(self, matchup, projected=False) -> list:
         """Takes matchup and returns list of team, score tuples"""
         scoreList = [
-            (matchup.home_team.team_name, matchup.home_score if not projected else matchup.home_projected),
-            (matchup.away_team.team_name, matchup.away_score if not projected else matchup.away_projected) if matchup.away_team != 0 else None
+            (matchup.home_team.owner, matchup.home_score if not projected else matchup.home_projected),
+            (matchup.away_team.owner, matchup.away_score if not projected else matchup.away_projected) if matchup.away_team != 0 else None
         ]
         return scoreList
 
@@ -34,12 +34,15 @@ class Dynasty(League):
         return scores
 
     def pointsFor(self, team, throughWeek:int) -> float:
-        """Requires team object, not just team.team_name"""
+        """Returns float of total points scored.
+        Requires team object, not just team.owner
+        throughWeek should NOT exceed current week
+        """
         total = 0
         for i in range(throughWeek):
             total += team.scores[i]
         if throughWeek == self.current_week:
-            total += self.weekScores(week=self.current_week)[team.team_name]
+            total += self.weekScores(week=self.current_week)[team.owner]
         else:
             total += 0
         return total
@@ -57,6 +60,6 @@ class Dynasty(League):
         scoreboard['Total'] = scoreboard.sum(axis=1)
         scoreboard['Points For'] = 0
         for team in self.teams:
-            scoreboard.loc[team.team_name,'Points For'] = self.pointsFor(team, throughWeek=throughWeek)
+            scoreboard.loc[team.owner,'Points For'] = self.pointsFor(team, throughWeek=throughWeek)
         scoreboard = scoreboard.sort_values(by=['Total', 'Points For'],ascending=False)
         return scoreboard
