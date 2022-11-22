@@ -27,9 +27,9 @@ class Dynasty(League):
     def weekScores(self, week:int) -> dict:
         """Returns dict of teams and scores"""
         if self.year >= 2021:
-            # years prior to 2021 do not use box_scores
             scoreboard = self.box_scores(week=week)
         else:
+            # years prior to 2021 use .scoreboard instead of .box_scores
             scoreboard = self.scoreboard(week=week)
         scoreList = []
         for matchup in scoreboard:
@@ -58,6 +58,10 @@ class Dynasty(League):
         pass
 
     def seasonScoreboard(self, throughWeek:int):
+        """Generates dataframe object of scoreboard through given week
+        df.index (str): team owner
+        df.columns (str): ['Week 1', ... 'Week <Current Week> (Proj.)', 'Total' (int), 'Points For' (float)]
+        """
         dicts = [self.weekScores(week=i) for i in range(1,throughWeek+1)]
         cols = [f'Week {i}' if i < self.current_week else f'Week {i} (Proj.)' for i in range(1,throughWeek+1)]
         df = pd.DataFrame(dicts,index=cols)
@@ -70,3 +74,14 @@ class Dynasty(League):
         scoreboard['Points For'] = scoreboard['Points For'].map('{:,.2f}'.format)
         scoreboard = scoreboard.sort_values(by=['Total', 'Points For'],ascending=False)
         return scoreboard
+
+def newScoreboard(league, scoreboard, throughWeek):
+    cols = [f'Week {i}' for i in range(1,throughWeek + 1)]
+    updated = scoreboard[cols]
+    updated['Total'] = updated.sum(axis=1)
+    updated['Points For'] = 0
+    for team in league.teams:
+        updated.loc[firstName(team.owner),'Points For'] = league.pointsFor(team, throughWeek=throughWeek)
+    updated['Points For'] = updated['Points For'].map('{:,.2f}'.format)
+    updated = updated.sort_values(by=['Total', 'Points For'],ascending=False)
+    return updated

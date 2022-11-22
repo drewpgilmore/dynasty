@@ -3,7 +3,7 @@
 
 from flask import Flask, render_template, redirect, request, url_for
 from flask_sqlalchemy import SQLAlchemy
-from scores import Dynasty
+from scores import Dynasty, firstName, newScoreboard
 import pandas as pd
 
 # flask app
@@ -25,7 +25,6 @@ def index():
     }
     
     return render_template('index.html',**context)
-    #return f'Made it to homepage! Fetching scores from {year} Week {current_week} \n {thisWeeksScores}'
 
 @app.route('/scoreboard', methods=('GET', 'POST'))
 def scoreboard():
@@ -42,7 +41,11 @@ def scoreboard():
 def updateScoreboard(week):
     """Change scoreboard throughWeek"""
 
-    scoreboardTable = league.seasonScoreboard(throughWeek=week)
+    if week == currentWeek:
+        scoreboardTable = currentScoreboard
+    else: 
+        scoreboardTable = newScoreboard(league, currentScoreboard, week)
+    
     columns = scoreboardTable.columns
     teams = scoreboardTable.index
 
