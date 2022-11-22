@@ -3,9 +3,11 @@
 
 from scores import Dynasty
 import pandas as pd
+import sys
 
+week = int(sys.argv[1])
+print(f'Loading Week {week} Scores...')
 league = Dynasty(year=2022)
-week = int(input('Week: '))
 data = league.weekScores(week=week)
 
 df = pd.DataFrame(
