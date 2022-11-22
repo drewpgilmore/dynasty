@@ -62,10 +62,11 @@ class Dynasty(League):
         cols = [f'Week {i}' if i < self.current_week else f'Week {i} (Proj.)' for i in range(1,throughWeek+1)]
         df = pd.DataFrame(dicts,index=cols)
         scoreboard = df.transpose()
-        scoreboard = scoreboard.rank()
-        scoreboard['Total'] = scoreboard.sum(axis=1)
+        scoreboard = scoreboard.rank().astype(int)
+        scoreboard['Total'] = scoreboard.sum(axis=1).astype(int)
         scoreboard['Points For'] = 0
         for team in self.teams:
             scoreboard.loc[firstName(team.owner),'Points For'] = self.pointsFor(team, throughWeek=throughWeek)
+        scoreboard['Points For'] = scoreboard['Points For'].map('{:,.2f}'.format)
         scoreboard = scoreboard.sort_values(by=['Total', 'Points For'],ascending=False)
         return scoreboard
