@@ -15,16 +15,19 @@ currentWeek = league.current_week
 currentScores = league.weekScores(week=currentWeek)
 currentScoreboard = league.seasonScoreboard(throughWeek=currentWeek)
 
+
 # homepage
 @app.route('/')
 def index(): 
     """Home page will default to current week"""
     context = {
         'scores': currentScores,
+        'year': league.year,
         'week': currentWeek
     }
     
     return render_template('index.html',**context)
+
 
 @app.route('/scoreboard', methods=('GET', 'POST'))
 def scoreboard():
@@ -36,6 +39,7 @@ def scoreboard():
         week = int(request.form.get("scoreboard-week"))
 
     return redirect(url_for("updateScoreboard", week=week))
+
 
 @app.route('/scoreboard/week<int:week>')
 def updateScoreboard(week):
@@ -73,12 +77,11 @@ def archive():
         week = int(request.form.get('week_select'))
 
     return redirect(url_for('postScores', year=year, week=week))
-    #return f'Fetching scores from {year} Week {week}'
 
-@app.route('/archive/<int:year>Week<int:week>')
+
+@app.route('/archive/week<int:week>_<int:year>')
 def postScores(year, week):
     """Get year and week inputs from /archive and return archived scoreboard"""
-
     league = Dynasty(year=year)
     scores = league.weekScores(week=week)
     context = {
@@ -86,8 +89,25 @@ def postScores(year, week):
         "year": year,
         "week": week
     }
-
     return render_template("archive.html", **context)
 
+
+@app.route('/lineup/<string:owner>/week<int:week>_<int:year>')
+def displayLineup(owner, year, week): 
+    league = Dynasty(year=year)
+    try: 
+        lineupScores = league.weekLineup(owner, week)
+    except AttributeError: 
+        return render_template("error.html")
+        
+    totalPoints = league.weekScores(week)[owner]
+    context = {
+        "owner": owner,
+        "lineup": lineupScores,
+        "total": totalPoints
+    }
+    return render_template("lineup.html", **context)
+
+
 if __name__ == "__main__":
-    app.run(debug=True,threaded=True)
+    app.run(debug=True, threaded=True)
