@@ -5,22 +5,23 @@
 
 {% block currentWeek %}
 
-Week {{ week }}
-
 {% endblock %}
 
 
 {% block body %}
-<table id="scores-table">
+<h4 class="tag-line">Projected Scores for Week {{ week }}</h4>
+<table class="scores-table">
     <thead>
-        <th>Team</th>
-        <th>Score</th>
+        <th>Owner</th>
+        <th>Proj. Score</th>
     </thead>
+    <tbody>
     {% for key, value in scores.items() %}
     <tr>
-        <td>{{ key }}</td>
+        <td><a href="{{ url_for('displayLineup', owner=key, year=year, week=week) }}">{{ key }}</td>
         <td>{{ value }}</td>
     </tr>
     {% endfor %}
+    </tbody>
 </table>
 {% endblock %}
