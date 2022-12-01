@@ -2,41 +2,43 @@
 {% block head %}{% endblock %}
 
 {% block body %}
-<h4>{{ year }} Scoreboard</h4>
 <!-- Form for changing week through which scoreboard will display -->
-<form method="POST" action="{{ url_for('scoreboard') }}">
-    <select onchange="this.form.submit()" name="scoreboard-week">
-        {% for i in range(1,currentWeek) %}
-            {% if i == week %}
-                <option selected value="{{ i }}">Week {{ i }}</option>
+<h4 class="tag-line"></h4>
+<div id="scoreboard-period-select">
+    <form method="POST" action="{{ url_for('scoreboard') }}">
+        Scoreboard Period
+        <select onchange="this.form.submit()" name="scoreboard-week">
+            {% for i in range(1,currentWeek) %}
+                {% if i == week %}
+                    <option selected value="{{ i }}">Week {{ i }}</option>
+                {% else %}
+                    <option value="{{ i }}">Week {{ i }}</option>
+                {% endif %}
+            {% endfor %}
+            {% if currentWeek == week %}
+                <option selected value="{{ currentWeek }}">Week {{ currentWeek }} Proj.</option>
             {% else %}
-                <option value="{{ i }}">Week {{ i }}</option>
+                <option value="{{ currentWeek }}">Week {{ currentWeek }} Proj.</option>
             {% endif %}
-        {% endfor %}
-        {% if currentWeek == week %}
-            <option selected value="{{ currentWeek }}">Week {{ currentWeek }} Proj.</option>
-        {% else %}
-            <option value="{{ currentWeek }}">Week {{ currentWeek }} Proj.</option>
-        {% endif %}
-    </select>
-</form>
-
+        </select>
+    </form>
+</div>
 <!-- Scoreboard table -->
-<table id="scores-table">
+<table class="scoreboard">
     <thead>
-        <th>Team</th>
+        <th>Owner</th>
         {% for col in columns %}
         <th>{{ col }}</th>
         {% endfor %}
     </thead>
     <tbody>
         {% for key, value in scoreboardTable.iterrows() %}
-            <tr>
-                <td>{{ key }}</td>
-                {% for col in columns %}
-                <td>{{ value[col] }} </td>
-                {% endfor %}
-            </tr>
+        <tr>
+            <td>{{ key }}</td>
+            {% for col in columns %}
+            <td>{{ value[col] }} </td>
+            {% endfor %}
+        </tr>
         {% endfor %}
     </tbody>
 </table>
