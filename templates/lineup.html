@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block head %}
+{% endblock %}
+
+{% block body %}
+<table class="lineup-table">
+    <thead>
+      <th>Position</th>
+      <th>Player</th>
+      <th>Score</th>
+    </thead>
+    {% for player in lineup %}
+    <tr>
+      <td>{{ player[1]['Pos'] }}</td>
+      <td>{{ player[0] }}</td>
+      <td>{{ player[1]['Points'] }}</td>
+    </tr>
+    {% endfor %}
+    <tr class="total-row">
+      <td>Total</td>
+      <td></td>
+      <td>{{ total }}</td>
+    </tr>
+</table> 
+<!-- <h2>Something should be here!</h2>
+<h3>{{ owner }}</h3>
+<h4>{{ year }}</h4>
+<h5>{{ week }}</h5>
+
+{{ lineup }} -->
+{% endblock %}
