@@ -1,45 +1,40 @@
-/*
+/* Body */ 
 body {
-    background-color: rgb(248,249,250);
+    background-color: rgb(230, 230, 230);
     text-align: center;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-.headline {
-    font-weight: 500;
+/* Header */
+#league-name {
+    margin-top: 1em;
+}
+#league-subtitle {
+    font-style: italic;
+    font-weight: 200;
+    font-size: large;
+}
+a {
+    color: white;
+    font-size: large;
+    margin: 0.5em;
+    text-decoration: none;
+}
+a:hover {
+    color: aqua;
+}
+.tag-line {
+    margin-top: 1em;
+}
+#scoreboard-period-select {
+    margin-top: 1em;
+    margin-bottom: 1em;
 }
 
-.nav-item {
-    font-size: larger;
-}
-
+/* Score Display */
 .form-select {
     width: 25%;
 }
-
-#scores-table {
-    background-color: RGB(51,153,102);
-    color: white;
-    border-color: white;
-    padding-top: 10px;
-    font-size: larger;
-    width: fit-content;
-    border: 3px solid black;
-    column-width: 20px;
-}
-
-thead {
-    background-color: RGB(26,128,77);
-    padding-left: 15px;
-}
-
-a {
-    color: gray;
-    font-size: x-large;
-    font-weight: 200;
-    margin: 2em;
-}
-
 .input-group {
     font-size: 20px;
     margin-top: 0.5em;
@@ -47,44 +42,61 @@ a {
     margin-left: 0.25em;
     width: 15%;
 }
-
 .input-group-addon {
-    margin-left: 0.5em,
-    margin-right: 0.5em
+    margin-left: 0.5em;
+    margin-right: 0.5em;
 }
 
-.team-col {
-    text-align: left;
+/* Table */ 
+table {
+    background-color: RGB(51,153,102);
+    color: white;
+    font-size: larger;
+    width: 50%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 1em;
+    margin-bottom: 1em;
+    border: 1px solid black;
+}
+th, tr, td {
+    border: 2px solid rgb(230, 230, 230);
+    text-decoration: none;
 }
 
-.score-col {
-    text-align: right;
+th {
+    background-color: RGB(21,113,62);
+    color: black;
+    font-weight: lighter; 
 }
 
-tr.header {
-    cursor:pointer;
+.scores-table {
+   width: 25%;
+   font-size: larger;
 }
 
+.lineup-table {
+    width: 35%;
+    background-color: rgba(119, 136, 153, 0.75);
+    font-size: larger;
+}
+.lineup-table th {
+    background-color: lightslategray;
+}
+.total-row {
+    font-weight: bold;
+    background-color: lightslategray;
+    color: black;
+}
+/* Footer */
 button {
     margin: 5px;
 }
-
 #slack-button {
     background-color: purple;
     border-color: purple;
 }
-
 #espn-button {
     background-color: red;
     border-color: red;
 }
-
-img {
-    width: 40px;
-    height: auto;
-}
-
-td {
-    margin: 5px;
-}
-*/
