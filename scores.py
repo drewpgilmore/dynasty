@@ -51,10 +51,11 @@ class Dynasty(League):
     def weeklyMatchups(self, week: int) -> list[object]:
         """Returns list of matchups"""
         # .scoreboard used prior to 2021
-        if self.year >= 2021: 
+        try: 
             matchups = self.box_scores(week)
-        else: 
+        except: 
             matchups = self.scoreboard(week)
+
         return matchups
 
     def weekScores(self, week:int) -> dict:
