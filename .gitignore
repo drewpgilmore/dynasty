@@ -15,3 +15,5 @@ build/
 
 testing.ipynb
 config.py
+
+.bot_env
