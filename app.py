@@ -1,4 +1,4 @@
-#! /env/bin python3
+#! /usr/bin python3
 # app.py - Used to render data to web page
 
 from flask import Flask, render_template, redirect, request, url_for
@@ -11,7 +11,7 @@ app = Flask(__name__)
 
 # initiate league with current week
 league = Dynasty(year=2022)
-currentWeek = league.current_week
+currentWeek = 14 # keep current week as last week of regular season
 currentScores = league.weekScores(week=currentWeek)
 currentScoreboard = league.seasonScoreboard(throughWeek=currentWeek)
 
