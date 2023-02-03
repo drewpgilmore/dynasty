@@ -5,18 +5,19 @@ from flask import Flask, render_template, redirect, request, url_for
 from flask_sqlalchemy import SQLAlchemy
 from scores import Dynasty, firstName, newScoreboard
 import pandas as pd
+import json
 
-# flask app
+# Flask app
 app = Flask(__name__)
 
-# initiate league with current week
-league = Dynasty(year=2022)
+# Initiate league with current week
+year = 2022
+league = Dynasty(year=year)
 currentWeek = 14 # keep current week as last week of regular season
 currentScores = league.weekScores(week=currentWeek)
 currentScoreboard = league.seasonScoreboard(throughWeek=currentWeek)
 
-
-# homepage
+# Homepage
 @app.route('/')
 def index(): 
     """Home page will default to current week"""
@@ -108,6 +109,12 @@ def displayLineup(owner, year, week):
     }
     return render_template("lineup.html", **context)
 
+# API endpoints
+@app.route('/player/<string:player>')
+def playerData(player): 
+    player_info = league.player_info(player).stats
+    data = json.dumps(player_info)
+    return data
 
 if __name__ == "__main__":
     app.run(debug=True, threaded=True)
