@@ -1,14 +1,45 @@
 /* Body */ 
 body {
-    background-color: rgb(230, 230, 230);
+    background-color: rgb(230, 230, 230); 
+    /* background-color: rgb(50, 50, 50); */
+    font-family: monospace;
+    /* color: rgb(238, 219, 255); */
     text-align: center;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-/* Header */
+.about-btn {
+    border: 2px solid black;
+    background-color: rgb(230, 230, 230);
+    display: inline-block;
+    padding: 18px 24px;
+    border-radius: 40px;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-size: 0.9em;
+    font-weight: 400;
+    line-height: 1;
+    transition: all 0.2s ease;
+    text-align: center;
+
+}
+
+.about-btn a {
+    color: black;
+}
+
+.about-btn:hover {
+    background-color: RGB(51,153,102);
+}
+
+.about-btn a:hover {
+    color: white;
+}
+
 #league-name {
     margin-top: 1em;
 }
+
 #league-subtitle {
     font-style: italic;
     font-weight: 200;
@@ -31,7 +62,6 @@ a:hover {
     margin-bottom: 1em;
 }
 
-/* Score Display */
 .form-select {
     width: 25%;
 }
@@ -46,8 +76,7 @@ a:hover {
     margin-left: 0.5em;
     margin-right: 0.5em;
 }
-
-/* Table */ 
+ 
 table {
     background-color: RGB(51,153,102);
     color: white;
@@ -88,7 +117,7 @@ th {
     background-color: lightslategray;
     color: black;
 }
-/* Footer */
+
 button {
     margin: 5px;
 }
@@ -99,4 +128,4 @@ button {
 #espn-button {
     background-color: red;
     border-color: red;
-}
+}  
