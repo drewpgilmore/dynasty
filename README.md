@@ -1,4 +1,5 @@
 # Fantasy Football Scoreboard App
+[check it out oneline!](http://encinitasdynasty.com)
 ### A Town, A Team, and No Dream 
 When my fantasy football league dwindled to an awkwardly obtuse 9 members, we adapted a new scoring method that got us over the hump of relying on the matchup model that would leave one team on the proverbial sidelines each week. Unlike real football, where a week off gives one the chance to rest from the weekly bludgeoning, fantasy foobtall is of zero value to the odd man out, and will often, ironically, yield an excitedly meaningless performance by their team.
 
