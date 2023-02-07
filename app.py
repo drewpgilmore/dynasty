@@ -109,6 +109,13 @@ def displayLineup(owner, year, week):
     }
     return render_template("lineup.html", **context)
 
+# About
+@app.route('/about')
+def about():
+    return render_template("about.html")
+
+
+
 # API endpoints
 @app.route('/player/<string:player>')
 def playerData(player): 
