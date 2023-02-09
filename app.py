@@ -115,17 +115,21 @@ def about():
     return render_template("about.html")
 
 
-@app.route('/sample')
-def sample(): 
-    return render_template("sample.html")
-
-
 # API endpoints
 @app.route('/player/<string:player>')
 def playerData(player): 
     player_info = league.player_info(player).stats
     data = json.dumps(player_info)
     return data
+
+
+@app.route('/league_id=<int:league_id>')
+def leagueHome(league_id):
+    """Returns other league pages"""
+    league = Dynasty(league_id=league_id, year=2022)
+    current_scores = league.weekScores(week=current_week)
+    current_scoreboard = league.seasonScoreboard(throughWeek=current_week)
+    return current_scoreboard.to_html()
 
 
 if __name__ == "__main__":
