@@ -13,24 +13,25 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" crossorigin="anonymous"></script>
   </head>
 <body>
-    <div class="px-4 pt-5 my-5 text-center border-bottom">
-        <h1 class="display-4 fw-bold">The Dynasty Scoreboard</h1>
-        <div class="col-lg-6 mx-auto">
-            <p class="lead mb-3">
-                A new approach to weekly scoring in your fantasy football league.<br>
-                This scoreboard ranks all teams against each other for the given week, so no more default wins because you happened to match up against Rick, who always seems to forget that the NFL has games on Thursday nights now.
-                With the weekly scoreboard, everyone has something to gain (or lose) up until the final whistle on Monday night; so yes, this may just redeem that Falcons @ Texans slumber party you were planning on skipping.
-            </p>
-          <div class="d-grid gap-2 d-sm-flex justify-content-sm-center mb-3">
-            <button type="button" class="about-btn"><a id="scoreboard-button" href="{{ url_for('scoreboard') }}">See example league</a></button>
-            <button type="button" class="about-btn"><a id="scoreboard-button" href="{{ url_for('scoreboard') }}">More info</a></button>
-          </div>
-        </div>
-        <div class="overflow-hidden" style="max-height: 50vh;">
-          <div class="container px-5">
-            <img src="../static/images/sample.png" class="img-fluid border rounded-3 shadow-lg mb-4" alt="Example image" width="700" height="500" loading="lazy">
-          </div>
-        </div>
+  <div class="px-4 pt-5 my-5 text-center border-bottom">
+    <h1 class="display-2 fw-bold">The Dynasty Scoreboard</h1>
+    <h3 class="display-6 mb-4">A New Approach to Weekly Scoring in Fantasy Football</h3>
+    <div class="col-lg-6 mx-auto">    
+
+      <div class="d-grid gap-2 d-sm-flex justify-content-sm-center mb-3">
+        <a class="btn btn-primary" id="custom-btn" role="button" href="{{ url_for('scoreboard') }}">See example league</a>
+        <a class="btn btn-primary" id="custom-btn" role="button" href="{{ url_for('scoreboard') }}">More info</a>
       </div>
+    
+      <div class="container px-20">
+        <img src="../static/images/sample.png" class="img-fluid border rounded-3 shadow-lg mb-4" alt="Example image" width="700" height="500" loading="lazy">
+      </div>
+      <p class="lead mb-3">
+        This scoreboard ranks all teams against each other for the given week, so no more default wins because you happened to match up against Rick, who always seems to forget that the NFL has games on Thursday nights now.
+        With the weekly scoreboard, everyone has something to gain (or lose) up until the final whistle on Monday night; so yes, this may just redeem that Falcons @ Texans slumber party you were planning on skipping.
+      </p>
+      <p>created by <a href="http://drewgilmore.info">Drew Gilmore</a> -- <a href="https://github.com/drewpgilmore/dynasty">see code on GitHub</a></p>
+    </div>
+  </div>
 </body>
 </html>
