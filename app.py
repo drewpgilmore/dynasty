@@ -38,7 +38,11 @@ def scoreboard():
         week = current_week
     else:
         week = int(request.form.get("scoreboard-week"))
-    return redirect(url_for("updateScoreboard", week=week))
+    context = {
+        "league_name": league.settings.name,
+        "week": week
+    }
+    return redirect(url_for("updateScoreboard", **context))
 
 
 @app.route('/scoreboard/week<int:week>')
@@ -51,6 +55,7 @@ def updateScoreboard(week):
     columns = scoreboard_table.columns
     teams = scoreboard_table.index
     context = {
+        "league_name": league.settings.name,
         "year": current_season,
         "week": week,
         "currentWeek": current_week,
@@ -77,6 +82,7 @@ def postScores(year, week):
     league = Dynasty(year=year)
     scores = league.weekScores(week=week)
     context = {
+        "league_name": league.settings.name,
         "scores": scores,
         "year": year,
         "week": week
@@ -94,6 +100,7 @@ def displayLineup(owner, year, week):
         return render_template("error.html")
     totalPoints = league.weekScores(week)[owner]
     context = {
+        "league_name": league.settings.name,
         "owner": owner,
         "lineup": lineupScores,
         "total": totalPoints
