@@ -1,54 +1,49 @@
 /* Body */ 
 body {
     background-color: rgb(230, 230, 230); 
-    /* background-color: rgb(50, 50, 50); */
-    font-family: monospace;
-    /* color: rgb(238, 219, 255); */
     text-align: center;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    text-decoration: none;
 }
 
-.about-btn {
+#custom-btn {
     border: 2px solid black;
     background-color: rgb(230, 230, 230);
     display: inline-block;
-    padding: 18px 24px;
+    padding: 10px 15px;
     border-radius: 40px;
-    text-decoration: none;
     text-transform: uppercase;
-    font-size: 0.9em;
     font-weight: 400;
     line-height: 1;
     transition: all 0.2s ease;
     text-align: center;
-
-}
-
-.about-btn a {
     color: black;
+    text-decoration: none;
+    margin: 5px;
 }
 
-.about-btn:hover {
+#custom-btn:hover {
     background-color: RGB(51,153,102);
-}
-
-.about-btn a:hover {
     color: white;
 }
 
 #league-name {
     margin-top: 1em;
 }
-
 #league-subtitle {
     font-style: italic;
     font-weight: 200;
     font-size: large;
 }
-a {
+table a {
     color: white;
-    font-size: large;
-    margin: 0.5em;
+}
+#footnote { 
+    color: rgb(75, 75, 75);
+}
+#footnote a {
+    color: rgb(75, 75, 75);
+}
+a {
     text-decoration: none;
 }
 a:hover {
@@ -86,7 +81,7 @@ table {
     margin-right: auto;
     margin-top: 1em;
     margin-bottom: 1em;
-    border: 1px solid black;
+    border-radius: 10px;
 }
 th, tr, td {
     border: 2px solid rgb(230, 230, 230);
@@ -96,7 +91,6 @@ th, tr, td {
 th {
     background-color: RGB(21,113,62);
     color: black;
-    font-weight: lighter; 
 }
 
 .scores-table {
@@ -117,15 +111,3 @@ th {
     background-color: lightslategray;
     color: black;
 }
-
-button {
-    margin: 5px;
-}
-#slack-button {
-    background-color: purple;
-    border-color: purple;
-}
-#espn-button {
-    background-color: red;
-    border-color: red;
-}  
