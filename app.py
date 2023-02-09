@@ -11,76 +11,67 @@ import json
 app = Flask(__name__)
 
 # Initiate league with current week
-year = 2022
-league = Dynasty(year=year)
-currentWeek = 14 # keep current week as last week of regular season
-currentScores = league.weekScores(week=currentWeek)
-currentScoreboard = league.seasonScoreboard(throughWeek=currentWeek)
+current_season = 2022
+league = Dynasty(year=current_season)
+last_reg_week = 14 # keep current week as last week of regular season
+current_week = min([last_reg_week, league.current_week])
+current_scores = league.weekScores(week=current_week)
+current_scoreboard = league.seasonScoreboard(throughWeek=current_week)
 
 # Homepage
 @app.route('/')
 def index(): 
-    """Home page will default to current week"""
+    """Display projected points for current week"""
     context = {
-        'scores': currentScores,
-        'year': league.year,
-        'week': currentWeek
+        'league_name': league.settings.name,
+        'scores': current_scores,
+        'year': current_season,
+        'week': current_week
     }
-    
     return render_template('index.html',**context)
 
 
 @app.route('/scoreboard', methods=('GET', 'POST'))
 def scoreboard():
     """Render scoreboard for current season"""
-
     if request.form.get("scoreboard-week") is None:
-        week = currentWeek
+        week = current_week
     else:
         week = int(request.form.get("scoreboard-week"))
-
     return redirect(url_for("updateScoreboard", week=week))
 
 
 @app.route('/scoreboard/week<int:week>')
 def updateScoreboard(week):
     """Change scoreboard throughWeek"""
-
-    if week == currentWeek:
-        scoreboardTable = currentScoreboard
+    if week == current_week:
+        scoreboard_table = current_scoreboard
     else: 
-        scoreboardTable = newScoreboard(league, currentScoreboard, week)
-    
-    columns = scoreboardTable.columns
-    teams = scoreboardTable.index
-
+        scoreboard_table = newScoreboard(league, current_scoreboard, week)
+    columns = scoreboard_table.columns
+    teams = scoreboard_table.index
     context = {
-        "year": league.year,
+        "year": current_season,
         "week": week,
-        "currentWeek": currentWeek,
-        "scoreboardTable": scoreboardTable,
+        "currentWeek": current_week,
+        "scoreboardTable": scoreboard_table,
         "columns": columns
     }
-
-    #return scoreboardTable.to_html()
     return render_template("scoreboard.html", **context)
 
 
 @app.route('/archive', methods=('GET', 'POST'))
 def archive():
     """Takes year and week from form and renders scores, should default to current week"""
-
-    if request.form.get('year_select') is None:
-        year = league.year
-        week = currentWeek
-    else:
+    if request.form.get('year_select') is not None:
         year = int(request.form.get('year_select'))
         week = int(request.form.get('week_select'))
+        return redirect(url_for('postScores', year=year, week=week))
+    else:
+        return redirect(url_for('postScores', year=current_season, week=current_week))
 
-    return redirect(url_for('postScores', year=year, week=week))
 
-
-@app.route('/archive/week<int:week>_<int:year>')
+@app.route('/archive/<int:year>/<int:week>')
 def postScores(year, week):
     """Get year and week inputs from /archive and return archived scoreboard"""
     league = Dynasty(year=year)
@@ -95,12 +86,12 @@ def postScores(year, week):
 
 @app.route('/lineup/<string:owner>/week<int:week>_<int:year>')
 def displayLineup(owner, year, week): 
+    """Displays starting lineup"""
     league = Dynasty(year=year)
     try: 
         lineupScores = league.weekLineup(owner, week)
     except AttributeError: 
         return render_template("error.html")
-        
     totalPoints = league.weekScores(week)[owner]
     context = {
         "owner": owner,
@@ -109,11 +100,17 @@ def displayLineup(owner, year, week):
     }
     return render_template("lineup.html", **context)
 
+
 # About
 @app.route('/about')
 def about():
+    """Landing page containing info about the app"""
     return render_template("about.html")
 
+
+@app.route('/sample')
+def sample(): 
+    return render_template("sample.html")
 
 
 # API endpoints
@@ -122,6 +119,7 @@ def playerData(player):
     player_info = league.player_info(player).stats
     data = json.dumps(player_info)
     return data
+
 
 if __name__ == "__main__":
     app.run(debug=True, threaded=True)
