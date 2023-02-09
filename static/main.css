@@ -1,6 +1,7 @@
 /* Body */ 
 body {
-    background-color: rgb(230, 230, 230); 
+    /* background-color: rgb(230, 230, 230);  */
+    background-color: red;
     text-align: center;
     text-decoration: none;
 }
