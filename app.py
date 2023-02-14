@@ -6,6 +6,7 @@ from flask_sqlalchemy import SQLAlchemy
 from scores import Dynasty, firstName, newScoreboard
 import pandas as pd
 import json
+from sample_league import alias, scores_alias
 
 # Flask app
 app = Flask(__name__)
@@ -18,12 +19,14 @@ current_week = min([last_reg_week, league.current_week])
 current_scores = league.weekScores(week=current_week)
 current_scoreboard = league.seasonScoreboard(throughWeek=current_week)
 
+
 # Homepage
 @app.route('/')
 def index(): 
     """Display projected points for current week"""
     context = {
-        'league_name': league.settings.name,
+        'league_name': alias['league_name'],
+        'alias': alias,
         'scores': current_scores,
         'year': current_season,
         'week': current_week
@@ -39,8 +42,9 @@ def scoreboard():
     else:
         week = int(request.form.get("scoreboard-week"))
     context = {
-        "league_name": league.settings.name,
-        "week": week
+        'league_name': league.settings.name,
+        'alias': alias,
+        'week': week
     }
     return redirect(url_for("updateScoreboard", **context))
 
@@ -56,6 +60,7 @@ def updateScoreboard(week):
     teams = scoreboard_table.index
     context = {
         "league_name": league.settings.name,
+        "alias": alias,
         "year": current_season,
         "week": week,
         "currentWeek": current_week,
@@ -83,6 +88,7 @@ def postScores(year, week):
     scores = league.weekScores(week=week)
     context = {
         "league_name": league.settings.name,
+        "alias": alias,
         "scores": scores,
         "year": year,
         "week": week
@@ -101,6 +107,8 @@ def displayLineup(owner, year, week):
     totalPoints = league.weekScores(week)[owner]
     context = {
         "league_name": league.settings.name,
+        "alias": alias,
+        "week": week,
         "owner": owner,
         "lineup": lineupScores,
         "total": totalPoints
