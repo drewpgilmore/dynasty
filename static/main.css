@@ -1,32 +1,35 @@
 /* Body */ 
 body {
-    background-color: rgb(230, 230, 230); 
+    background-color: rgb(53,53,53);
     text-align: center;
     text-decoration: none;
+    color: #dddddd;
 }
 
-#custom-btn {
-    border: 2px solid black;
-    background-color: rgb(230, 230, 230);
+
+.menu-btn {
+    border: 2px solid rgb(53,53,53);
+    background-color: RGB(51,153,102);
+    color: rgb(53,53,53);
     display: inline-block;
     padding: 10px 15px;
     border-radius: 40px;
     text-transform: uppercase;
-    font-weight: 400;
+    font-weight: bold;
     line-height: 1;
     transition: all 0.2s ease;
     text-align: center;
-    color: black;
     text-decoration: none;
     margin: 5px;
 }
 
-#custom-btn:hover {
-    background-color: RGB(51,153,102);
-    color: white;
+.menu-btn:hover {
+    background-color: rgb(21,113,62);
+    color: #dddddd;
 }
 
 #league-name {
+    color: #dddddd;
     margin-top: 1em;
 }
 #league-subtitle {
@@ -37,17 +40,12 @@ body {
 table a {
     color: white;
 }
-#footnote { 
-    color: rgb(75, 75, 75);
-}
-#footnote a {
-    color: rgb(75, 75, 75);
-}
 a {
     text-decoration: none;
 }
 a:hover {
-    color: aqua;
+    color: violet;
+    font-weight: bold;
 }
 .tag-line {
     margin-top: 1em;
@@ -56,7 +54,6 @@ a:hover {
     margin-top: 1em;
     margin-bottom: 1em;
 }
-
 .form-select {
     width: 25%;
 }
@@ -74,25 +71,23 @@ a:hover {
  
 table {
     background-color: RGB(51,153,102);
-    color: white;
+    color: #dddddd;
     font-size: larger;
     width: 50%;
     margin-left: auto;
     margin-right: auto;
     margin-top: 1em;
     margin-bottom: 1em;
-    border-radius: 10px;
 }
 th, tr, td {
-    border: 2px solid rgb(230, 230, 230);
+    border: 2px solid rgb(53,53,53);
     text-decoration: none;
 }
-
 th {
     background-color: RGB(21,113,62);
-    color: black;
+    color: #dddddd;
+    font-weight: bolder;
 }
-
 .scores-table {
    width: 25%;
    font-size: larger;
@@ -110,4 +105,13 @@ th {
     font-weight: bold;
     background-color: lightslategray;
     color: black;
+}
+
+/* Bottom section */
+p {
+    color:rgba(230, 230, 230, 0.5);
+}
+p a {
+    color: white; 
+    text-decoration: underline;
 }
