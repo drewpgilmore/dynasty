@@ -9,8 +9,8 @@
 
 
 {% block body %}
-<h4 class="tag-line">Projected Scores for Week {{ week }}</h4>
-<table class="scores-table">
+<p class="tag-line">Projected Scores for Week {{ week }}</p>
+<table class="scoreboard">
     <thead>
         <th>Owner</th>
         <th>Proj. Score</th>
@@ -18,7 +18,7 @@
     <tbody>
     {% for key, value in scores.items() %}
     <tr>
-        <td><a href="{{ url_for('displayLineup', owner=key, year=year, week=week) }}">{{ key }}</td>
+        <td><a href="{{ url_for('displayLineup', owner=key, year=year, week=week) }}">{{ alias["members"][key] }}</td>
         <td>{{ value }}</td>
     </tr>
     {% endfor %}

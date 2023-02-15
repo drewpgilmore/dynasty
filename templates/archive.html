@@ -4,12 +4,12 @@
 {% endblock %}
 
 {% block body %}
-<h4 class="tag-line">The  archive is a place for discovery and retrospection.<br>
-We hope you'll enjoy as you browse the scores of yesteryear.<br>
-</h4>
+<p class="tag-line">
+  The archive: a place for discovery and retrospection.
+</p>
 <div id="period-selection">
   <form method="POST" action="{{ url_for('archive') }}">
-    <span>
+    <span class="options">
       Year
         <select name="year_select" onchange="this.form.submit()">
           <option selected>{{ year }}</option>
@@ -22,7 +22,6 @@ We hope you'll enjoy as you browse the scores of yesteryear.<br>
           <option value="2021">2021</option>
           <option value="2022">2022</option>
         </select>
-      
       Week
         <select name="week_select" onchange="this.form.submit()">
           <option selected>{{ week }}</option>
@@ -55,7 +54,7 @@ We hope you'll enjoy as you browse the scores of yesteryear.<br>
   </thead>
   {% for key, value in scores.items() %}
   <tr>
-    <td><a href="{{ url_for('displayLineup', owner=key, year=year, week=week) }}">{{ key }}</td>
+    <td><a href="{{ url_for('displayLineup', owner=key, year=year, week=week) }}">{{ alias["members"][key] }}</td>
     <td>{{ value }}</td>
   </tr>
   {% endfor %}
