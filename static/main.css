@@ -1,12 +1,29 @@
-/* Body */ 
-body {
-    background-color: rgb(53,53,53);
-    text-align: center;
-    text-decoration: none;
-    color: #dddddd;
+/* Body */
+html {
+    font-size: 24px;
+    margin-right: 10%;
+    margin-left: 10%;
 }
 
+body {
+    background-color: #353535;
+    color: #dddddd;
+    text-align: center;
+    text-decoration: none;
+}
 
+/* Top section */
+#top-section {
+    margin-top: 2rem;
+}
+#league-name {
+    color: #dddddd;
+    margin-bottom: 0.5rem; 
+}
+.links {
+    margin-bottom: 0.5rem;
+    font-size: 0.75rem;
+}
 .menu-btn {
     border: 2px solid rgb(53,53,53);
     background-color: RGB(51,153,102);
@@ -22,46 +39,48 @@ body {
     text-decoration: none;
     margin: 5px;
 }
-
 .menu-btn:hover {
     background-color: rgb(21,113,62);
     color: #dddddd;
 }
 
-#league-name {
+/* Middle section */
+#middle-section {
+    font-size: 1rem;
     color: #dddddd;
-    margin-top: 1em;
 }
-#league-subtitle {
-    font-style: italic;
-    font-weight: 200;
-    font-size: large;
+
+.tag-line {
+    color: #dddddd75;
+    margin: 0rem 1rem;
+    font-size: 1.25rem;
 }
-table a {
-    color: white;
+
+span {
+    color: #dddddd75;
+    font-size: 1rem;
 }
-a {
-    text-decoration: none;
+
+select {
+    margin-top: 1rem;
 }
+
+table {
+    background-color: RGB(51,153,102);
+    margin: 1rem auto; 
+    font-size: 1rem;
+    min-width: 25%;
+    max-width: 80%;
+}
+
+table a {color: white;}
+a {text-decoration: none;}
 a:hover {
     color: violet;
-    font-weight: bold;
+    
 }
-.tag-line {
-    margin-top: 1em;
-}
-#scoreboard-period-select {
-    margin-top: 1em;
-    margin-bottom: 1em;
-}
-.form-select {
-    width: 25%;
-}
+
 .input-group {
-    font-size: 20px;
-    margin-top: 0.5em;
-    margin-bottom: 0.5em;
-    margin-left: 0.25em;
     width: 15%;
 }
 .input-group-addon {
@@ -69,47 +88,40 @@ a:hover {
     margin-right: 0.5em;
 }
  
-table {
-    background-color: RGB(51,153,102);
-    color: #dddddd;
-    font-size: larger;
-    width: 50%;
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 1em;
-    margin-bottom: 1em;
-}
+
 th, tr, td {
     border: 2px solid rgb(53,53,53);
+    padding: 2px 5px 2px 5px;
     text-decoration: none;
 }
 th {
     background-color: RGB(21,113,62);
     color: #dddddd;
-    font-weight: bolder;
+    font-weight: bold;
 }
 .scores-table {
    width: 25%;
-   font-size: larger;
 }
 
-.lineup-table {
-    width: 35%;
-    background-color: rgba(119, 136, 153, 0.75);
-    font-size: larger;
-}
-.lineup-table th {
-    background-color: lightslategray;
-}
+.lineup-table th {background-color: lightslategray;}
 .total-row {
     font-weight: bold;
-    background-color: lightslategray;
-    color: black;
+    background-color: rgb(21,113,62);
+    color: #dddddd;
 }
+select {
+    background-color: rgb(53,53,53);
+    color: #dddddd;
+}
+.owner {font-weight: bold;}
+.week-score {font-weight: 200;}
 
 /* Bottom section */
+#bottom-section {
+    margin-top: 1rem;
+}
 p {
-    color:rgba(230, 230, 230, 0.5);
+    color:#dddddd75;
 }
 p a {
     color: white; 
