@@ -14,10 +14,10 @@
                         <option value="{{ i }}">Week {{ i }}</option>
                     {% endif %}
                 {% endfor %}
-                {% if currentWeek == week %}
-                    <option selected value="{{ currentWeek }}">Week {{ currentWeek }} Proj.</option>
+                {% if currentWeek == week%}
+                    <option selected value="{{ currentWeek }}">Week {{ currentWeek }}</option>
                 {% else %}
-                    <option value="{{ currentWeek }}">Week {{ currentWeek }} Proj.</option>
+                    <option value="{{ currentWeek }}">Week {{ currentWeek }}</option>
                 {% endif %}
             </select>
         </span>
