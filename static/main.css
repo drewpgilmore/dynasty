@@ -20,6 +20,10 @@ body {
     color: #dddddd;
     margin-bottom: 0.5rem; 
 }
+#about-subtitle {
+    color: #dddddd75;
+}
+
 .links {
     margin-bottom: 0.5rem;
     font-size: 0.75rem;

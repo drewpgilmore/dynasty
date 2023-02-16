@@ -6,7 +6,7 @@ from flask_sqlalchemy import SQLAlchemy
 from scores import Dynasty, firstName, newScoreboard
 import pandas as pd
 import json
-from sample_league import alias, scores_alias
+from sample_league import alias 
 
 # Flask app
 app = Flask(__name__)
@@ -20,9 +20,20 @@ current_scores = league.weekScores(week=current_week)
 current_scoreboard = league.seasonScoreboard(throughWeek=current_week)
 
 
-# Homepage
+# About
 @app.route('/')
-def index(): 
+def about():
+    """Landing page containing info about the app"""
+    return render_template("about.html")
+
+@app.route('/info')
+def info():
+    """Longer description about how the scoreboard works"""
+    return render_template("info.html")
+
+# League home
+@app.route('/scores')
+def scores(): 
     """Display projected points for current week"""
     context = {
         'league_name': alias['league_name'],
@@ -76,9 +87,9 @@ def archive():
     if request.form.get('year_select') is not None:
         year = int(request.form.get('year_select'))
         week = int(request.form.get('week_select'))
-        return redirect(url_for('postScores', year=year, week=week))
+        return redirect(url_for('postScores', year=year, week=week, alias=alias))
     else:
-        return redirect(url_for('postScores', year=current_season, week=current_week))
+        return redirect(url_for('postScores', year=current_season, week=current_week, alias=alias))
 
 
 @app.route('/archive/<int:year>/<int:week>')
@@ -103,7 +114,7 @@ def displayLineup(owner, year, week):
     try: 
         lineupScores = league.weekLineup(owner, week)
     except AttributeError: 
-        return render_template("error.html")
+        return render_template("error.html", alias=alias)
     totalPoints = league.weekScores(week)[owner]
     context = {
         "league_name": league.settings.name,
@@ -114,13 +125,6 @@ def displayLineup(owner, year, week):
         "total": totalPoints
     }
     return render_template("lineup.html", **context)
-
-
-# About
-@app.route('/about')
-def about():
-    """Landing page containing info about the app"""
-    return render_template("about.html")
 
 
 # API endpoints
