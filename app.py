@@ -22,7 +22,7 @@ current_scoreboard = league.seasonScoreboard(throughWeek=current_week)
 
 # About
 @app.route('/')
-def about():
+def index():
     """Landing page containing info about the app"""
     return render_template("about.html")
 
