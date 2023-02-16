@@ -24,7 +24,7 @@ current_scoreboard = league.seasonScoreboard(throughWeek=current_week)
 @app.route('/')
 def index():
     """Landing page containing info about the app"""
-    return render_template("about.html")
+    return render_template("index.html")
 
 @app.route('/info')
 def info():
@@ -42,7 +42,7 @@ def scores():
         'year': current_season,
         'week': current_week
     }
-    return render_template('index.html',**context)
+    return render_template('scores.html',**context)
 
 
 @app.route('/scoreboard', methods=('GET', 'POST'))

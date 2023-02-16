@@ -1,19 +1,37 @@
-{% extends 'base.html' %}
-{% block head %}{% endblock %}
-{% block body %}
-<p class="tag-line">Scores for Week {{ week }}</p>
-<table class="scoreboard">
-    <thead>
-        <th>Owner</th>
-        <th>Score</th>
-    </thead>
-    <tbody>
-    {% for key, value in scores.items() %}
-    <tr>
-        <td><a href="{{ url_for('displayLineup', owner=key, year=year, week=week) }}">{{ alias["members"][key] }}</td>
-        <td>{{ value }}</td>
-    </tr>
-    {% endfor %}
-    </tbody>
-</table>
-{% endblock %}
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Dynasty Scoreboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+    <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" crossorigin="anonymous"></script>
+  </head>
+  <body>
+    <section class="container" id="top-section">
+      <h1 id="about-title" >The Dynasty Scoreboard</h1>
+      <h6 id="about-subtitle">A Different Approach to Weekly Scoring in Fantasy Football</h6>
+      <div class="links">
+        <a class="menu-btn" role="button" href="{{ url_for('scoreboard') }}">example league</a>
+        <a class="menu-btn" role="button" href="{{ url_for('info') }}">more info</a>
+      </div>
+    </section>
+    <section class="container" id="middle-section">
+      <a href="{{ url_for('scoreboard') }}">
+        <img src="../static/images/sample2.png" class="img-fluid shadow-lg mb-4" alt="Example image" width="700" height="500" loading="lazy">
+      </a>
+      <p>
+        This scoreboard ranks all teams against each other for the given week, so no more default wins because you happened to match up against Rick, who always seems to forget that the NFL has games on Thursday nights now.
+        With the weekly scoreboard, everyone has something to gain (or lose) up until the final whistle on Monday night; so yes, this may just redeem that Falcons @ Texans slumber party you were planning on skipping.
+      </p>
+    </section>
+    <section class="container" id="bottom-section">  
+      <footer> 
+        <p>Questions about the app or want to see your league here? Email me drewpgilmore@gmail.com</p>
+        <p>created by <a href="http://drewgilmore.info">Drew Gilmore</a>  see code on <a href="https://github.com/drewpgilmore/dynasty">GitHub</a></p>
+      </footer>
+    </section>
+  </body>
+</html>
