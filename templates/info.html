@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Dynasty Scoreboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+    <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" crossorigin="anonymous"></script>
+  </head>
+  <body>
+    <section class="container" id="top-section">
+      <h1 id="about-title" >The Dynasty Scoreboard</h1>
+      <h6 id="about-subtitle">A Different Approach to Weekly Scoring in Fantasy Football</h6>
+      <div class="links">
+        <a class="menu-btn" role="button" href="{{ url_for('about') }}">home</a>
+        <a class="menu-btn" role="button" href="{{ url_for('scoreboard') }}">example league</a>
+      </div>
+    </section>
+    <section class="container" id="middle-section">
+      <p class="info">
+        When my fantasy football league dwindled to an awkwardly obtuse 9 members, we adapted a new scoring method that got us over the hump of relying on the matchup model that would leave one team on the proverbial sidelines each week. Unlike real football, where a week off gives one the chance to rest from the weekly bludgeoning, fantasy foobtall is of zero value to the odd man out, and will often, ironically, yield an excitedly meaningless performance by their team.
+        <br>
+        <br>
+        The solution to this problem was a scoring methodology in which the entire league competes against itself each week. The fruit of your efforts is a weekly score corresponding to the inverse of your rank that week. For example, in the previously-mentioned 9-team league, the team with the highest score gets 9 points as their plunder; the lowest gets 1 point, etc. This creates a distinct difference from a total points-for model in that it isolates each week, and gives high-performing teams a more meaningful result than the binary "W" or "L". Perhaps the most enticing feature is that it brings league-wide suspense into Monday night, as inidividual performances on MNF can push multiple teams up the scoreboard.
+    </p>
+    </section>
+    <section class="container" id="bottom-section">  
+      <footer>  
+        <p><a href="{{ url_for('about') }}">Dynasty Scoreboard</a> created by <a href="http://drewgilmore.info">Drew Gilmore</a>  see code on <a href="https://github.com/drewpgilmore/dynasty">GitHub</a></p>
+      </footer>
+    </section>
+  </body>
+</html>

@@ -1,26 +1,25 @@
 {% extends 'base.html' %}
 {% block head %}{% endblock %}
-
 {% block body %}
 <!-- Form for changing week through which scoreboard will display -->
 <div class="tag-line">
     <form method="POST" action="{{ url_for('scoreboard') }}">
         <span class="options">
             Scoreboard Period
-                <select onchange="this.form.submit()" name="scoreboard-week">
-                    {% for i in range(1,currentWeek) %}
-                        {% if i == week %}
-                            <option selected value="{{ i }}">Week {{ i }}</option>
-                        {% else %}
-                            <option value="{{ i }}">Week {{ i }}</option>
-                        {% endif %}
-                    {% endfor %}
-                    {% if currentWeek == week %}
-                        <option selected value="{{ currentWeek }}">Week {{ currentWeek }} Proj.</option>
+            <select onchange="this.form.submit()" name="scoreboard-week">
+                {% for i in range(1,currentWeek) %}
+                    {% if i == week %}
+                        <option selected value="{{ i }}">Week {{ i }}</option>
                     {% else %}
-                        <option value="{{ currentWeek }}">Week {{ currentWeek }} Proj.</option>
+                        <option value="{{ i }}">Week {{ i }}</option>
                     {% endif %}
-                </select>
+                {% endfor %}
+                {% if currentWeek == week %}
+                    <option selected value="{{ currentWeek }}">Week {{ currentWeek }} Proj.</option>
+                {% else %}
+                    <option value="{{ currentWeek }}">Week {{ currentWeek }} Proj.</option>
+                {% endif %}
+            </select>
         </span>
     </form>
 </div>
@@ -40,7 +39,7 @@
                 {% if col == "Total" or col == "Points For"%}
                     <td class="owner">{{ value[col] }}</td>
                 {% else %}
-                    <td class="week-score"><a href="{{ url_for('displayLineup', owner=key, year=year, week=week) }}">{{ value[col] }}</a></td>
+                    <td class="week-score"><a href="{{ url_for('displayLineup', owner=key, year=year, week=loop.index) }}">{{ value[col] }}</a></td>
                 {% endif %}
             {% endfor %}
         </tr>

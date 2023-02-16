@@ -1,19 +1,11 @@
 {% extends 'base.html' %}
-
-{% block head %}
-{% endblock %}
-
-{% block currentWeek %}
-
-{% endblock %}
-
-
+{% block head %}{% endblock %}
 {% block body %}
-<p class="tag-line">Projected Scores for Week {{ week }}</p>
+<p class="tag-line">Scores for Week {{ week }}</p>
 <table class="scoreboard">
     <thead>
         <th>Owner</th>
-        <th>Proj. Score</th>
+        <th>Score</th>
     </thead>
     <tbody>
     {% for key, value in scores.items() %}

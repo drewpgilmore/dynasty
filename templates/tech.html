@@ -5,20 +5,30 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Dynasty Scoreboard</title>
+    <link rel="icon" href="../static/images/ed_logo.png">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
     <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" crossorigin="anonymous"></script>
   </head>
   <body>
     <section class="container" id="top-section">
-      <h1 id="league-name" >{{ alias["league_name"] }}</h1>
+      <h1 id="about-title" >The Dynasty Scoreboard</h1>
+      <h6 id="about-subtitle">A Different Approach to Weekly Scoring in Fantasy Football</h6>
       <div class="links">
-        <a class="menu-btn" role="button" href="{{ url_for('index') }}">This Week</a>
-        <a class="menu-btn" role="button" href="{{ url_for('scoreboard') }}">Current Scoreboard</a>
-        <a class="menu-btn" role="button" href="{{ url_for('archive') }}">League Archive</a>
+        <a class="menu-btn" role="button" href="{{ url_for('scoreboard') }}">example league</a>
+        <a class="menu-btn" role="button" href="{{ url_for('tech') }}">More info</a>
       </div>
     </section>
-    <section class="container" id="middle-section">{% block body %}{% endblock %}
+    <section class="container" id="middle-section">
+      <h2>A One-Project Man</h2>
+      <p class="info">
+        After learning to code a few years back, I only recently set off to explore becoming an engineer. This project quickly became a fun collision of the personal and professional as I set off to learn about back-end engineering while automating something annoying and making it more accessible to my friends.
+        <br><br>
+        This scoreboard first lived in an Excel spreadsheet that I had to manually update each week. A screenshot of the updated scoreboard would be shared via Slack and that was that, but the process was begging for improvement, and the prospect of hosting a scoreboard online seemed like the best solution.
+        <br><br>
+        The 
+        
+    </p>
     </section>
     <section class="container" id="bottom-section">  
       <footer>  
