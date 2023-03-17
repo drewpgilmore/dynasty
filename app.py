@@ -7,6 +7,7 @@ from scores import Dynasty, firstName, newScoreboard
 import pandas as pd
 import json
 from sample_league import alias 
+import requests
 
 # Flask app
 app = Flask(__name__)
@@ -32,6 +33,23 @@ def info():
     return render_template("info.html")
 
 # League home
+@app.route('/league/<int:league_id>')
+def league(league_id:int):
+    """Takes user to specified league page"""
+    url = 'https://espn.com'
+    response = requests.get(url)
+    swid = response.cookies.get('SWID')
+    
+    league = Dynasty(
+        league_id=league_id,
+        year=current_season,
+        swid=swid
+    )
+
+    current_scores = league.weekScores(week=14)
+    return current_scores
+
+
 @app.route('/scores')
 def scores(): 
     """Display projected points for current week"""
