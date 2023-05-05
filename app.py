@@ -66,12 +66,12 @@ def scores():
 @app.route('/scoreboard', methods=('GET', 'POST'))
 def scoreboard():
     """Render scoreboard for current season"""
+    league = Dynasty(year=current_season)
     if request.form.get("scoreboard-week") is None:
         week = current_week
     else:
         week = int(request.form.get("scoreboard-week"))
     context = {
-        'league_name': league.settings.name,
         'alias': alias,
         'week': week
     }
@@ -84,11 +84,11 @@ def updateScoreboard(week):
     if week == current_week:
         scoreboard_table = current_scoreboard
     else: 
+        league = Dynasty(year=current_season)
         scoreboard_table = newScoreboard(league, current_scoreboard, week)
     columns = scoreboard_table.columns
     teams = scoreboard_table.index
     context = {
-        "league_name": league.settings.name,
         "alias": alias,
         "year": current_season,
         "week": week,
@@ -116,7 +116,6 @@ def postScores(year, week):
     league = Dynasty(year=year)
     scores = league.weekScores(week=week)
     context = {
-        "league_name": league.settings.name,
         "alias": alias,
         "scores": scores,
         "year": year,
@@ -135,7 +134,6 @@ def displayLineup(owner, year, week):
         return render_template("error.html", alias=alias)
     totalPoints = league.weekScores(week)[owner]
     context = {
-        "league_name": league.settings.name,
         "alias": alias,
         "week": week,
         "owner": owner,
