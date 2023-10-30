@@ -18,7 +18,7 @@ class Dynasty(League):
     """
     def __init__(self, league_id=LEAGUE_ID, year=None, espn_s2=ESPN_S2, swid=SWID):
         League.__init__(self, league_id, year, espn_s2, swid)
-        self.current_season = 2022
+        self.current_season = 2023
         self.positionRank = {
             'QB': 0,
             'RB': 1,
@@ -34,6 +34,15 @@ class Dynasty(League):
             return True
         else:
             return False
+
+
+    def get_owner_name(self, member: str) -> str: 
+        for team in self.members: 
+            if team['id'] == member: 
+                return team['firstName'].title()
+        
+        return ''
+
 
     def getScore(self, matchup: object, week: int) -> tuple: 
         """Returns (home score, away score)
@@ -64,13 +73,13 @@ class Dynasty(League):
         scores = {}
         for matchup in matchups: 
             try: 
-                awayTeam = firstName(matchup.away_team.owner)
+                awayTeam = self.get_owner_name(matchup.away_team.owners[0])
                 scores[awayTeam] = self.getScore(matchup, week)[1]
             except Exception: 
                 # seasons with 9 teams will have blank away box scores
                 pass
             finally: 
-                homeTeam = firstName(matchup.home_team.owner)
+                homeTeam = self.get_owner_name(matchup.home_team.owners[0])
                 scores[homeTeam] = self.getScore(matchup, week)[0]
 
         scores = dict(sorted(scores.items(), 
@@ -163,3 +172,4 @@ def newScoreboard(league, scoreboard, throughWeek):
     updated['Points For'] = updated['Points For'].map('{:,.2f}'.format)
     updated = updated.sort_values(by=['Total', 'Points For'],ascending=False)
     return updated
+
