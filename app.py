@@ -6,17 +6,17 @@ from flask_sqlalchemy import SQLAlchemy
 from scores import Dynasty, firstName, newScoreboard
 import pandas as pd
 import json
-from sample_league import alias 
 import requests
 
 # Flask app
 app = Flask(__name__)
 
 # Initiate league with current week
-current_season = 2022
+current_season = 2023
 league = Dynasty(year=current_season)
-last_reg_week = 14 # keep current week as last week of regular season
-current_week = min([last_reg_week, league.current_week])
+#last_reg_week = 14 # keep current week as last week of regular season
+#current_week = min([last_reg_week, league.current_week])
+current_week = league.current_week
 current_scores = league.weekScores(week=current_week)
 current_scoreboard = league.seasonScoreboard(throughWeek=current_week)
 
@@ -53,9 +53,9 @@ def league(league_id:int):
 @app.route('/scores')
 def scores(): 
     """Display projected points for current week"""
+    league = Dynasty(year=current_season)
     context = {
-        'league_name': alias['league_name'],
-        'alias': alias,
+        'league_name': league.settings.name,
         'scores': current_scores,
         'year': current_season,
         'week': current_week
@@ -68,11 +68,11 @@ def scoreboard():
     """Render scoreboard for current season"""
     league = Dynasty(year=current_season)
     if request.form.get("scoreboard-week") is None:
-        week = current_week
+        week = league.current_week
     else:
         week = int(request.form.get("scoreboard-week"))
     context = {
-        'alias': alias,
+        'league_name': league.settings.name,
         'week': week
     }
     return redirect(url_for("updateScoreboard", **context))
@@ -81,15 +81,18 @@ def scoreboard():
 @app.route('/scoreboard/week<int:week>')
 def updateScoreboard(week):
     """Change scoreboard throughWeek"""
+    league = Dynasty(year=current_season)
+    current_scoreboard = league.seasonScoreboard(throughWeek=league.current_week)
     if week == current_week:
+        #current_scoreboard = league.seasonScoreboard(throughWeek=league.current_week)
         scoreboard_table = current_scoreboard
     else: 
-        league = Dynasty(year=current_season)
+        #league = Dynasty(year=current_season)
         scoreboard_table = newScoreboard(league, current_scoreboard, week)
     columns = scoreboard_table.columns
     teams = scoreboard_table.index
     context = {
-        "alias": alias,
+        "league_name": league.settings.name,
         "year": current_season,
         "week": week,
         "currentWeek": current_week,
@@ -105,9 +108,9 @@ def archive():
     if request.form.get('year_select') is not None:
         year = int(request.form.get('year_select'))
         week = int(request.form.get('week_select'))
-        return redirect(url_for('postScores', year=year, week=week, alias=alias))
+        return redirect(url_for('postScores', year=year, week=week))
     else:
-        return redirect(url_for('postScores', year=current_season, week=current_week, alias=alias))
+        return redirect(url_for('postScores', year=current_season, week=current_week))
 
 
 @app.route('/archive/<int:year>/<int:week>')
@@ -116,7 +119,6 @@ def postScores(year, week):
     league = Dynasty(year=year)
     scores = league.weekScores(week=week)
     context = {
-        "alias": alias,
         "scores": scores,
         "year": year,
         "week": week
@@ -131,10 +133,9 @@ def displayLineup(owner, year, week):
     try: 
         lineupScores = league.weekLineup(owner, week)
     except AttributeError: 
-        return render_template("error.html", alias=alias)
+        return render_template("error.html")
     totalPoints = league.weekScores(week)[owner]
     context = {
-        "alias": alias,
         "week": week,
         "owner": owner,
         "lineup": lineupScores,
