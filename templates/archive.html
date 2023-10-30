@@ -54,7 +54,7 @@
   </thead>
   {% for key, value in scores.items() %}
   <tr>
-    <td><a href="{{ url_for('displayLineup', owner=key, year=year, week=week) }}">{{ alias["members"][key] }}</td>
+    <td><a href="{{ url_for('displayLineup', owner=key, year=year, week=week) }}">{{ key }}</td>
     <td>{{ value }}</td>
   </tr>
   {% endfor %}
