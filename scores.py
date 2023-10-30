@@ -97,7 +97,8 @@ class Dynasty(League):
             total += team.scores[i]
         
         if throughWeek == self.current_week:
-            total += self.weekScores(week=self.current_week)[firstName(team.owner)]
+            owner_name = self.get_owner_name(team.owners[0])
+            total += self.weekScores(week=self.current_week)[owner_name]
         else:
             total += 0
         return total
@@ -120,7 +121,8 @@ class Dynasty(League):
         scoreboard['Points For'] = 0
         for team in self.teams:
             teamPoints = self.pointsFor(team, throughWeek=throughWeek)
-            scoreboard.loc[firstName(team.owner),'Points For'] = teamPoints
+            owner_name = self.get_owner_name(team.owners[0])
+            scoreboard.loc[owner_name,'Points For'] = teamPoints
         scoreboard['Points For'] = scoreboard['Points For'].map('{:,.2f}'.format)
         scoreboard = scoreboard.sort_values(by=['Total', 'Points For'],ascending=False)
         return scoreboard
@@ -168,7 +170,8 @@ def newScoreboard(league, scoreboard, throughWeek):
     updated['Total'] = updated.sum(axis=1)
     updated['Points For'] = 0
     for team in league.teams:
-        updated.loc[firstName(team.owner),'Points For'] = league.pointsFor(team, throughWeek=throughWeek)
+        owner_name = league.get_owner_name(team.owners[0])
+        updated.loc[owner_name,'Points For'] = league.pointsFor(team, throughWeek=throughWeek)
     updated['Points For'] = updated['Points For'].map('{:,.2f}'.format)
     updated = updated.sort_values(by=['Total', 'Points For'],ascending=False)
     return updated
