@@ -28,6 +28,11 @@ class Dynasty(League):
             'D/ST': 5,
             'K': 6
         }
+        self.owner_map = {
+            member['id']: member['firstName'] for member in self.members
+        }
+
+
 
     def isProjected(self, week: int) -> bool: 
         if self.year == self.current_season and week == self.current_week:
@@ -73,13 +78,15 @@ class Dynasty(League):
         scores = {}
         for matchup in matchups: 
             try: 
-                awayTeam = self.get_owner_name(matchup.away_team.owners[0])
+                #awayTeam = self.get_owner_name(matchup.away_team.owners[0])
+                awayTeam = matchup.away_team.owners[0]['firstName'].title()
                 scores[awayTeam] = self.getScore(matchup, week)[1]
             except Exception: 
                 # seasons with 9 teams will have blank away box scores
                 pass
             finally: 
-                homeTeam = self.get_owner_name(matchup.home_team.owners[0])
+                #homeTeam = self.get_owner_name(matchup.home_team.owners[0])
+                homeTeam = matchup.home_team.owners[0]['firstName'].title()
                 scores[homeTeam] = self.getScore(matchup, week)[0]
 
         scores = dict(sorted(scores.items(), 
@@ -94,10 +101,14 @@ class Dynasty(League):
         """
         total = 0
         for i in range(throughWeek):
-            total += team.scores[i]
-        
+            try:
+                total += team.scores[i]
+            except IndexError: 
+                total += 0
+
         if throughWeek == self.current_week:
-            owner_name = self.get_owner_name(team.owners[0])
+            #owner_name = self.get_owner_name(team.owners[0])
+            owner_name = team.owners[0]['firstName'].title()
             total += self.weekScores(week=self.current_week)[owner_name]
         else:
             total += 0
@@ -110,10 +121,11 @@ class Dynasty(League):
         'Total' (int), 'Points For' (float)]
         """
         dicts = [self.weekScores(week=i) for i in range(1,throughWeek+1)]
-        cols = [f'Week {i}' 
-                if i < self.current_week
-                else f'Week {i} (Proj.)' 
-                for i in range(1,throughWeek+1)]
+        cols = [
+            f'Week {i}' if i < self.current_week
+            else f'Week {i} (Proj.)' 
+            for i in range(1,throughWeek+1)
+        ]
         df = pd.DataFrame(dicts,index=cols)
         scoreboard = df.transpose().rank().astype(int)
         #scoreboard = scoreboard.rank().astype(int)
@@ -125,7 +137,7 @@ class Dynasty(League):
             scoreboard.loc[owner_name,'Points For'] = teamPoints
         scoreboard['Points For'] = scoreboard['Points For'].map('{:,.2f}'.format)
         scoreboard = scoreboard.sort_values(by=['Total', 'Points For'],ascending=False)
-        return scoreboard
+        return scoreboard.dropna(how='any')
     
     def lineupScores(self, boxScore: object, projected: bool = False) -> dict:
         """Returns lineup scores for given week"""
@@ -170,9 +182,10 @@ def newScoreboard(league, scoreboard, throughWeek):
     updated['Total'] = updated.sum(axis=1)
     updated['Points For'] = 0
     for team in league.teams:
-        owner_name = league.get_owner_name(team.owners[0])
-        updated.loc[owner_name,'Points For'] = league.pointsFor(team, throughWeek=throughWeek)
+        owner_name = league.get_owner_name(team.owners[0]['id'])
+        updated.loc[owner_name,'Points For'] = (
+            league.pointsFor(team, throughWeek=throughWeek)
+        )
     updated['Points For'] = updated['Points For'].map('{:,.2f}'.format)
     updated = updated.sort_values(by=['Total', 'Points For'],ascending=False)
     return updated
-
