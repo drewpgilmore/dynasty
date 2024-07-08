@@ -14,9 +14,10 @@ app = Flask(__name__)
 # Initiate league with current week
 current_season = 2023
 league = Dynasty(year=current_season)
-#last_reg_week = 14 # keep current week as last week of regular season
+last_reg_week = 14 # keep current week as last week of regular season
+current_week = 14
 #current_week = min([last_reg_week, league.current_week])
-current_week = league.current_week
+#current_week = league.current_week
 current_scores = league.weekScores(week=current_week)
 current_scoreboard = league.seasonScoreboard(throughWeek=current_week)
 
@@ -25,6 +26,7 @@ current_scoreboard = league.seasonScoreboard(throughWeek=current_week)
 @app.route('/')
 def index():
     """Landing page containing info about the app"""
+    #return "<h1>on strike</h1><br><h2>seek 3rd party scorekeeper</h2>"
     return render_template("index.html")
 
 @app.route('/info')
@@ -68,7 +70,8 @@ def scoreboard():
     """Render scoreboard for current season"""
     league = Dynasty(year=current_season)
     if request.form.get("scoreboard-week") is None:
-        week = league.current_week
+        #week = league.current_week
+        week = current_week
     else:
         week = int(request.form.get("scoreboard-week"))
     context = {
@@ -82,7 +85,7 @@ def scoreboard():
 def updateScoreboard(week):
     """Change scoreboard throughWeek"""
     league = Dynasty(year=current_season)
-    current_scoreboard = league.seasonScoreboard(throughWeek=league.current_week)
+    current_scoreboard = league.seasonScoreboard(throughWeek=week)
     if week == current_week:
         #current_scoreboard = league.seasonScoreboard(throughWeek=league.current_week)
         scoreboard_table = current_scoreboard
