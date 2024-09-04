@@ -6,10 +6,8 @@ from espn_api.football import League
 from config import LEAGUE_ID, ESPN_S2, SWID
 
 
-def firstName(owner: str) -> str:
-    name = owner.split(' ')
-    firstName = name[0].title()
-    return firstName
+def firstName(owner: dict) -> str:
+    return owner.get("firstName")
 
 
 class Dynasty(League):
@@ -64,13 +62,13 @@ class Dynasty(League):
         scores = {}
         for matchup in matchups: 
             try: 
-                awayTeam = firstName(matchup.away_team.owner)
+                awayTeam = firstName(matchup.away_team.owners[0])
                 scores[awayTeam] = self.getScore(matchup, week)[1]
             except Exception: 
                 # seasons with 9 teams will have blank away box scores
                 pass
             finally: 
-                homeTeam = firstName(matchup.home_team.owner)
+                homeTeam = firstName(matchup.home_team.owners[0])
                 scores[homeTeam] = self.getScore(matchup, week)[0]
 
         scores = dict(sorted(scores.items(), 
@@ -88,7 +86,7 @@ class Dynasty(League):
             total += team.scores[i]
         
         if throughWeek == self.current_week:
-            total += self.weekScores(week=self.current_week)[firstName(team.owner)]
+            total += self.weekScores(week=self.current_week)[firstName(team.owners[0])]
         else:
             total += 0
         return total
@@ -111,7 +109,7 @@ class Dynasty(League):
         scoreboard['Points For'] = 0
         for team in self.teams:
             teamPoints = self.pointsFor(team, throughWeek=throughWeek)
-            scoreboard.loc[firstName(team.owner),'Points For'] = teamPoints
+            scoreboard.loc[firstName(team.owners[0]),'Points For'] = teamPoints
         scoreboard['Points For'] = scoreboard['Points For'].map('{:,.2f}'.format)
         scoreboard = scoreboard.sort_values(by=['Total', 'Points For'],ascending=False)
         return scoreboard
@@ -131,8 +129,8 @@ class Dynasty(League):
             return results
         scores = {}
         for matchup in boxScore:
-            scores[firstName(matchup.home_team.owner)] = getLineup(matchup.home_lineup, projected=projected)
-            scores[firstName(matchup.away_team.owner)] = getLineup(matchup.away_lineup, projected=projected)
+            scores[firstName(matchup.home_team.owners[0])] = getLineup(matchup.home_lineup, projected=projected)
+            scores[firstName(matchup.away_team.owners[0])] = getLineup(matchup.away_lineup, projected=projected)
         return scores
 
     def weekLineup(self, owner: str, week: int) -> dict:
@@ -159,7 +157,7 @@ def newScoreboard(league, scoreboard, throughWeek):
     updated['Total'] = updated.sum(axis=1)
     updated['Points For'] = 0
     for team in league.teams:
-        updated.loc[firstName(team.owner),'Points For'] = league.pointsFor(team, throughWeek=throughWeek)
+        updated.loc[firstName(team.owners[0]),'Points For'] = league.pointsFor(team, throughWeek=throughWeek)
     updated['Points For'] = updated['Points For'].map('{:,.2f}'.format)
     updated = updated.sort_values(by=['Total', 'Points For'],ascending=False)
     return updated
