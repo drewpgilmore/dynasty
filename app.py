@@ -13,7 +13,7 @@ import requests
 app = Flask(__name__)
 
 # Initiate league with current week
-current_season = 2022
+current_season = 2024
 league = Dynasty(year=current_season)
 last_reg_week = 14 # keep current week as last week of regular season
 current_week = min([last_reg_week, league.current_week])

@@ -34,7 +34,7 @@
     <tbody>
         {% for key, value in scoreboardTable.iterrows() %}
         <tr>
-            <td class="owner">{{ alias["members"][key] }}</td>
+            <td class="owner">{{ key }}</td>
             {% for col in columns %}
                 {% if col == "Total" or col == "Points For"%}
                     <td class="owner">{{ value[col] }}</td>
