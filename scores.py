@@ -3,7 +3,7 @@
 
 import pandas as pd
 from espn_api.football import League
-from config import LEAGUE_ID, ESPN_S2, SWID
+from config import LEAGUE_ID, ESPN_S2, SWID, DIV
 
 
 def firstName(owner: dict) -> str:
@@ -93,7 +93,7 @@ class Dynasty(League):
             total += 0
         return total
 
-    def seasonScoreboard(self, throughWeek:int):
+    def seasonScoreboard(self, throughWeek:int) -> pd.DataFrame:
         """Generates dataframe object of scoreboard through given week
         df.index (str): team owner
         df.columns (str): ['Week 1', ... 'Week <Current Week> (Proj.)',
@@ -114,8 +114,17 @@ class Dynasty(League):
             scoreboard.loc[firstName(team.owners[0]),'Points For'] = teamPoints
         scoreboard['Points For'] = scoreboard['Points For'].map('{:,.2f}'.format)
         scoreboard = scoreboard.sort_values(by=['Total', 'Points For'],ascending=False)
+        #scoreboard["Division"] = scoreboard.index.map(DIV)
         return scoreboard
     
+    def divisional_scoreboard(self, throughWeek: int, division: str) -> pd.DataFrame: 
+        """Filters season scoreboard by division"""
+        scoreboard = self.seasonScoreboard(throughWeek=throughWeek)
+        scoreboard["Division"] = scoreboard.index.map(DIV)
+        divisional_scoreboard = scoreboard[scoreboard["Division"] == division]
+        return divisional_scoreboard.drop("Division", axis="columns")
+
+
     def lineupScores(self, boxScore: object, projected: bool = False) -> dict:
         """Returns lineup scores for given week"""
         def getLineup(lineup: list[object], projected=False) -> dict:
