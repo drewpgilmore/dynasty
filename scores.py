@@ -7,8 +7,8 @@ from config import LEAGUE_ID, ESPN_S2, SWID
 
 
 def firstName(owner: dict) -> str:
-    return owner.get("firstName")
-
+    name = owner.get("firstName")
+    return name.title()
 
 class Dynasty(League):
     """Building on espn_api.football League 
@@ -63,13 +63,15 @@ class Dynasty(League):
         for matchup in matchups: 
             try: 
                 awayTeam = firstName(matchup.away_team.owners[0])
-                scores[awayTeam] = self.getScore(matchup, week)[1]
+                #scores[awayTeam] = self.getScore(matchup, week)[1]
+                scores[awayTeam] = matchup.away_projected
             except Exception: 
                 # seasons with 9 teams will have blank away box scores
                 pass
             finally: 
                 homeTeam = firstName(matchup.home_team.owners[0])
-                scores[homeTeam] = self.getScore(matchup, week)[0]
+                #scores[homeTeam] = self.getScore(matchup, week)[0]
+                scores[homeTeam] = matchup.home_projected
 
         scores = dict(sorted(scores.items(), 
                             key=lambda x:x[1], 
