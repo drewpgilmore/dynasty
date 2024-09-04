@@ -19,6 +19,9 @@ last_reg_week = 14 # keep current week as last week of regular season
 current_week = min([last_reg_week, league.current_week])
 current_scores = league.weekScores(week=current_week)
 current_scoreboard = league.seasonScoreboard(throughWeek=current_week)
+#current_scoreboard = league.divisional_scoreboard(throughWeek=current_week, division="Cardiff")
+current_cardiff = league.divisional_scoreboard(throughWeek=current_week, division="Cardiff")
+current_leucadia = league.divisional_scoreboard(throughWeek=current_week, division="Leucadia")
 
 
 # About
@@ -39,7 +42,6 @@ def league(league_id:int):
     url = 'https://espn.com'
     response = requests.get(url)
     swid = response.cookies.get('SWID')
-    
     league = Dynasty(
         league_id=league_id,
         year=current_season,
@@ -83,18 +85,26 @@ def updateScoreboard(week):
     """Change scoreboard throughWeek"""
     if week == current_week:
         scoreboard_table = current_scoreboard
+        scores_cardiff = current_cardiff
+        scores_leucadia = current_leucadia
     else: 
         league = Dynasty(year=current_season)
         scoreboard_table = newScoreboard(league, current_scoreboard, week)
+        #!TODO add functionality to split newScorebard function into divisions
+        scores_cardiff = current_cardiff
+        scores_leucadia = current_leucadia
     columns = scoreboard_table.columns
-    teams = scoreboard_table.index
+    columns = scores_cardiff.columns
+    #teams = scoreboard_table.index
     context = {
         "alias": alias,
         "year": current_season,
         "week": week,
         "currentWeek": current_week,
         "scoreboardTable": scoreboard_table,
-        "columns": columns
+        "columns": columns, 
+        "scores_cardiff": scores_cardiff, 
+        "scores_leucadia": scores_leucadia
     }
     return render_template("scoreboard.html", **context)
 
