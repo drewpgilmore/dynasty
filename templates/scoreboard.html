@@ -24,6 +24,7 @@
     </form>
 </div>
 <!-- Scoreboard table -->
+<h4>Cardiff</h4>
 <table class="scoreboard" id="scoreboard">
     <thead>
         <th>Owner</th>
@@ -32,7 +33,30 @@
         {% endfor %}
     </thead>
     <tbody>
-        {% for key, value in scoreboardTable.iterrows() %}
+        {% for key, value in scores_cardiff.iterrows() %}
+        <tr>
+            <td class="owner">{{ key }}</td>
+            {% for col in columns %}
+                {% if col == "Total" or col == "Points For"%}
+                    <td class="owner">{{ value[col] }}</td>
+                {% else %}
+                    <td class="week-score"><a href="{{ url_for('displayLineup', owner=key, year=year, week=loop.index) }}">{{ value[col] }}</a></td>
+                {% endif %}
+            {% endfor %}
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+<h4>Leucadia</h4>
+<table class="scoreboard" id="scoreboard">
+    <thead>
+        <th>Owner</th>
+        {% for col in columns %}
+            <th>{{ col }}</th>
+        {% endfor %}
+    </thead>
+    <tbody>
+        {% for key, value in scores_leucadia.iterrows() %}
         <tr>
             <td class="owner">{{ key }}</td>
             {% for col in columns %}
