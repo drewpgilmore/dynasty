@@ -107,6 +107,19 @@ th {
    width: 25%;
 }
 
+#cardiff-scoreboard th { 
+    background-color: rgb(212, 103, 2);
+}
+#cardiff-scoreboard tr {
+    background-color: rgb(213, 127, 47)
+}
+#leucadia-scoreboard th {
+    background-color: rgb(50, 50, 197);
+}
+#leucadia-scoreboard tr {
+    background-color: rgb(100, 100, 195);
+}
+
 .lineup-table th {background-color: lightslategray;}
 .total-row {
     font-weight: bold;
