@@ -16,7 +16,7 @@ class Dynasty(League):
     """
     def __init__(self, league_id=LEAGUE_ID, year=None, espn_s2=ESPN_S2, swid=SWID):
         League.__init__(self, league_id, year, espn_s2, swid)
-        self.current_season = 2022
+        self.current_season = 2024
         self.positionRank = {
             'QB': 0,
             'RB': 1,
@@ -63,15 +63,15 @@ class Dynasty(League):
         for matchup in matchups: 
             try: 
                 awayTeam = firstName(matchup.away_team.owners[0])
-                #scores[awayTeam] = self.getScore(matchup, week)[1]
-                scores[awayTeam] = matchup.away_projected
+                scores[awayTeam] = self.getScore(matchup, week)[1]
+                #scores[awayTeam] = matchup.away_projected
             except Exception: 
                 # seasons with 9 teams will have blank away box scores
                 pass
             finally: 
                 homeTeam = firstName(matchup.home_team.owners[0])
-                #scores[homeTeam] = self.getScore(matchup, week)[0]
-                scores[homeTeam] = matchup.home_projected
+                scores[homeTeam] = self.getScore(matchup, week)[0]
+                #scores[homeTeam] = matchup.home_projected
 
         scores = dict(sorted(scores.items(), 
                             key=lambda x:x[1], 
@@ -123,7 +123,6 @@ class Dynasty(League):
         scoreboard["Division"] = scoreboard.index.map(DIV)
         divisional_scoreboard = scoreboard[scoreboard["Division"] == division]
         return divisional_scoreboard.drop("Division", axis="columns")
-
 
     def lineupScores(self, boxScore: object, projected: bool = False) -> dict:
         """Returns lineup scores for given week"""
