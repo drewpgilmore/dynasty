@@ -9,10 +9,18 @@
     </thead>
     <tbody>
     {% for key, value in scores.items() %}
-    <tr>
-        <td><a href="{{ url_for('displayLineup', owner=key, year=year, week=week) }}">{{ alias["members"][key] }}</td>
-        <td>{{ value }}</td>
-    </tr>
+        {% if div[key] == "Leucadia" %}
+            <tr id="leucadia-scoreboard">
+                <td><a href="{{ url_for('displayLineup', owner=key, year=year, week=week) }}">{{ key }}</td>
+                <td>{{ value }}</td>
+            </tr>
+        {% else %}
+            <tr id="cardiff-scoreboard">
+                <td><a href="{{ url_for('displayLineup', owner=key, year=year, week=week) }}">{{ key }}</td>
+                <td>{{ value }}</td>
+            </tr>
+        {% endif %}
+
     {% endfor %}
     </tbody>
 </table>

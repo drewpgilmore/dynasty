@@ -8,6 +8,7 @@ import pandas as pd
 import json
 from sample_league import alias 
 import requests
+from config import DIV
 
 # Flask app
 app = Flask(__name__)
@@ -58,6 +59,7 @@ def scores():
     context = {
         'league_name': alias['league_name'],
         'alias': alias,
+        'div': DIV,
         'scores': current_scores,
         'year': current_season,
         'week': current_week
