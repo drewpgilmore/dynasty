@@ -3,7 +3,7 @@
 
 from flask import Flask, render_template, redirect, request, url_for
 from flask_sqlalchemy import SQLAlchemy
-from scores import Dynasty, firstName, newScoreboard
+from scores import Dynasty, firstName, newScoreboard, newDivisionScoreboard
 import pandas as pd
 import json
 from sample_league import alias 
@@ -85,6 +85,8 @@ def scoreboard():
 @app.route('/scoreboard/week<int:week>')
 def updateScoreboard(week):
     """Change scoreboard throughWeek"""
+    #league = Dynasty(year=current_season)
+    #current_scoreboard = league.seasonScoreboard(throughWeek=league.current_week)
     if week == current_week:
         scoreboard_table = current_scoreboard
         scores_cardiff = current_cardiff
@@ -93,8 +95,9 @@ def updateScoreboard(week):
         league = Dynasty(year=current_season)
         scoreboard_table = newScoreboard(league, current_scoreboard, week)
         #!TODO add functionality to split newScorebard function into divisions
-        scores_cardiff = current_cardiff
-        scores_leucadia = current_leucadia
+        scores_cardiff = newDivisionScoreboard(league, current_scoreboard, week, "Cardiff")
+        scores_leucadia = newDivisionScoreboard(league, current_scoreboard, week, "Leucadia")
+        #scores_leucadia = current_leucadia
     columns = scoreboard_table.columns
     columns = scores_cardiff.columns
     #teams = scoreboard_table.index

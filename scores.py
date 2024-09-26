@@ -171,3 +171,10 @@ def newScoreboard(league, scoreboard, throughWeek):
     updated['Points For'] = updated['Points For'].map('{:,.2f}'.format)
     updated = updated.sort_values(by=['Total', 'Points For'],ascending=False)
     return updated
+
+
+def newDivisionScoreboard(league, scoreboard, throughWeek, division): 
+    new_scoreboard = newScoreboard(league, scoreboard, throughWeek)
+    new_scoreboard["Division"] = new_scoreboard.index.map(DIV)
+    divisional_scoreboard = new_scoreboard[new_scoreboard["Division"] == division]
+    return divisional_scoreboard.drop("Division", axis="columns")
