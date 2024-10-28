@@ -2,7 +2,7 @@
 # app.py - Used to render data to web page
 
 from flask import Flask, render_template, redirect, request, url_for
-from flask_sqlalchemy import SQLAlchemy
+#from flask_sqlalchemy import SQLAlchemy
 from scores import Dynasty, firstName, newScoreboard, newDivisionScoreboard
 import pandas as pd
 import json

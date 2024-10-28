@@ -46,7 +46,7 @@ class Dynasty(League):
         
         return (homeScore, awayScore)
 
-    def weeklyMatchups(self, week: int) -> list[object]:
+    def weeklyMatchups(self, week: int) -> list:
         """Returns list of matchups"""
         # .scoreboard used prior to 2021
         try: 
