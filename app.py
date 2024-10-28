@@ -19,7 +19,7 @@ league = Dynasty(year=current_season)
 last_reg_week = 14 # keep current week as last week of regular season
 current_week = min([last_reg_week, league.current_week])
 current_scores = league.weekScores(week=current_week)
-#current_scoreboard = league.seasonScoreboard(throughWeek=current_week)
+current_scoreboard = league.seasonScoreboard(throughWeek=current_week)
 #current_scoreboard = league.divisional_scoreboard(throughWeek=current_week, division="Cardiff")
 current_cardiff = league.divisional_scoreboard(throughWeek=current_week, division="Cardiff")
 current_leucadia = league.divisional_scoreboard(throughWeek=current_week, division="Leucadia")
@@ -85,7 +85,7 @@ def scoreboard():
 @app.route('/scoreboard/week<int:week>')
 def updateScoreboard(week):
     """Change scoreboard throughWeek"""
-    #league = Dynasty(year=current_season)
+    league = Dynasty(year=current_season)
     #current_scoreboard = league.seasonScoreboard(throughWeek=league.current_week)
     if week == current_week:
         scoreboard_table = current_scoreboard
@@ -94,10 +94,9 @@ def updateScoreboard(week):
     else: 
         league = Dynasty(year=current_season)
         scoreboard_table = newScoreboard(league, current_scoreboard, week)
-        #!TODO add functionality to split newScorebard function into divisions
         scores_cardiff = newDivisionScoreboard(league, current_scoreboard, week, "Cardiff")
         scores_leucadia = newDivisionScoreboard(league, current_scoreboard, week, "Leucadia")
-        #scores_leucadia = current_leucadia
+
     columns = scoreboard_table.columns
     columns = scores_cardiff.columns
     #teams = scoreboard_table.index
