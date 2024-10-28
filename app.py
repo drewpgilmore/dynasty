@@ -19,7 +19,7 @@ league = Dynasty(year=current_season)
 last_reg_week = 14 # keep current week as last week of regular season
 current_week = min([last_reg_week, league.current_week])
 current_scores = league.weekScores(week=current_week)
-current_scoreboard = league.seasonScoreboard(throughWeek=current_week)
+#current_scoreboard = league.seasonScoreboard(throughWeek=current_week)
 #current_scoreboard = league.divisional_scoreboard(throughWeek=current_week, division="Cardiff")
 current_cardiff = league.divisional_scoreboard(throughWeek=current_week, division="Cardiff")
 current_leucadia = league.divisional_scoreboard(throughWeek=current_week, division="Leucadia")
@@ -70,7 +70,7 @@ def scores():
 @app.route('/scoreboard', methods=('GET', 'POST'))
 def scoreboard():
     """Render scoreboard for current season"""
-    league = Dynasty(year=current_season)
+    #league = Dynasty(year=current_season)
     if request.form.get("scoreboard-week") is None:
         week = current_week
     else:
